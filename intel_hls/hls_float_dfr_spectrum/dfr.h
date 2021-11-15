@@ -14,11 +14,11 @@ using DFR_FP = hls_float<8, 17, fp_config::FP_Round::RNE>;
 //mackey glass function
 DFR_FP mackey_glass(DFR_FP x);
 
-// iq inputs
-DFR_FP* iq_inputs(int size);
+// iq inputs: 2D array of size (2 x size)
+DFR_FP** iq_inputs(int size);
 
 // spectrum outputs
-DFR_FP* spectrum_outputs(DFR_FP* inputs, int size);
+DFR_FP* spectrum_outputs(int size);
 
 // Frobenius norm
 DFR_FP norm(DFR_FP x);

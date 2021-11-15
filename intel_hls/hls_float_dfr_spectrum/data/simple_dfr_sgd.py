@@ -4,7 +4,6 @@ import matplotlib.pyplot as plt
 import sys
 
 def mg(x):
-
     a = 2
     b = 0.8
     c = 0.2
@@ -21,22 +20,12 @@ num_samples = train_samples + init_samples
 
 rng = np.random.default_rng(0)
 
-ss_data = np.genfromtxt('ss_data_0db.csv', delimiter=',')
+ss_data = np.genfromtxt('ss_data_-10db.csv', delimiter=',')
 
 x = ss_data[:,4]
 y = ss_data[:,5]
 
 y_train = y[init_samples:init_samples+train_samples]
-
-## dfr parameters
-# virtual nodes [10,100]
-# input gain (gamma) [0,1]
-# feedback scale (eta) [0,1]
-# weight matrix (W)
-# activation function (g(x)) [mg,tanh,sigmoid,relu]
-# training technique [bptt,regression]
-# mask [uniform,]
-# learning rate (alpha) [1,0.1,0.01,0.001,0.0001]
 
 N = 50
 gamma = 0.5
@@ -57,9 +46,7 @@ alpha = 0.01  # learning rate
 # weight generation
 W = (2*rng.random(N) - 1)
 
-# mask = rng.choice([-0.1,0.1],N)
 mask = rng.uniform(-0.5,0.5,N)
-# mask = rng.uniform(-1,1,N)
 
 # mask generation
 masked_samples = np.empty((num_samples,N))

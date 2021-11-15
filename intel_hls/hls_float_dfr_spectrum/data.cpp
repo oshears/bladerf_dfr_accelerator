@@ -14,21 +14,21 @@
 #include "dfr.h"
 
 // iq inputs
-DFR_FP* iq_inputs(int size){
+DFR_FP** iq_inputs(int size){
 
-    DFR_FP* inputs = (DFR_FP*) malloc(sizeof(DFR_FP)*size);
+    DFR_FP** inputs = (DFR_FP**) malloc(sizeof(DFR_FP*) * size);
+
 
     // File pointer
     std::fstream spectrum_file;
   
     // Open an existing file
-    spectrum_file.open("./data/ss_data_0db.csv", std::iostream::in);
+    spectrum_file.open("./data/ss_data_-10db.csv", std::iostream::in);
 
     std::string line, data_field;
 
     for (int i = 0; i < size; i++){
-        // DFR_FP u = 0.5 * DFR_FP(static_cast<float>(rand()) / static_cast<float>(RAND_MAX));
-        // inputs[i] = u;
+        inputs[i] = (DFR_FP*) malloc(sizeof(DFR_FP*) * 2);
 
         // read an entire row and
         // store it in a string variable 'line'
@@ -40,49 +40,56 @@ DFR_FP* iq_inputs(int size){
         // read every column data of a row and
         // store it in a string variable, 'word'
         int j = 0;
-        float i_data = 0, q_data = 0;
         while (std::getline(s, data_field, ',')) {
             if (j == 2){
-                printf("i = %s\n",data_field.c_str());
+                inputs[i][0] = std::stof(data_field);
             }
             else if(j == 3){
-                printf("q = %s\n",data_field.c_str());
+                inputs[i][1] = std::stof(data_field);
             }
-  
-            // add all the column data
-            // of a row to a vector
             j++;
         }
 
-        // printf("i = %f, q = %f");
+        // printf("i = %s, q = %s\n",inputs[i][0].get_str().c_str(),inputs[i][1].get_str().c_str());
 
-        // printf("u[%d] = %f\n",i,u);
     }
 
     return inputs;
 }
 
 // spectrum outputs
-DFR_FP* spectrum_outputs(DFR_FP* inputs, int size){
+DFR_FP* spectrum_outputs(int size){
 
     DFR_FP* outputs = (DFR_FP*) malloc(sizeof(DFR_FP)*size);
 
-    for (int i = 0; i < 10; i++){
-        outputs[i] = 0;
-    }
+    // File pointer
+    std::fstream spectrum_file;
+  
+    // Open an existing file
+    spectrum_file.open("./data/ss_data_-10db.csv", std::iostream::in);
 
-    // determine output from index 10 to size - 1
-    for (int i = 9; i < size - 1; i++){
+    std::string line, data_field;
 
-        // calculate sum of last 10 outputs
-        DFR_FP sum = 0;
-        for (int j = 0; j < 10; j++){
-            sum = sum + outputs[i - j];
+    for (int i = 0; i < size; i++){
+
+        // read an entire row and
+        // store it in a string variable 'line'
+        std::getline(spectrum_file, line);
+  
+        // used for breaking words
+        std::stringstream s(line);
+  
+        // read every column data of a row and
+        // store it in a string variable, 'word'
+        int j = 0;
+        while (std::getline(s, data_field, ',')) {
+            if (j == 5){
+                outputs[i] = std::stof(data_field);
+            }
+            j++;
         }
 
-        outputs[i + 1] = 0.3 * outputs[i] + 0.05 * outputs[i] * sum + 1.5 * inputs[i] * inputs[i - 9] + 0.1;
-
-        // printf("outputs[%d] = %f\n",i+1,outputs[i + 1]);
+        // printf("spectrum_out = %s\n",outputs[i].get_str().c_str());
     }
 
     return outputs;
