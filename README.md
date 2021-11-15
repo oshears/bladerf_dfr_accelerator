@@ -21,7 +21,8 @@ https://github.com/Nuand/bladeRF/wiki/FPGA-Development
 - Custom Code
     - Should be placed between sample/meta FIFO blocks and iq correction blocks
 
-### Architecture Block Diagram
+### Architecture Block Diagrams
+![](bladerf_micro_block_diagram.drawio.png)
 ![](https://raw.githubusercontent.com/ifrasch/files/master/bladeRF-FPGA-samples-architecture.png)
 
 
