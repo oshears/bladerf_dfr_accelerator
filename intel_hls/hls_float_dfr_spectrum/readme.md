@@ -33,29 +33,6 @@ make test-fpga DEVICE=CycloneV
 +---------------------------------+---------------------------------------------+
 ```
 
-# DFR Core Design Utilization
+# Spectrum Sensing DFR Core Design Utilization
 ```
-+-------------------------------------------------------------------------------+
-; Flow Summary                                                                  ;
-+---------------------------------+---------------------------------------------+
-; Flow Status                     ; Successful - Thu Oct 28 16:11:44 2021       ;
-; Quartus Prime Version           ; 20.1.1 Build 720 11/11/2020 SJ Lite Edition ;
-; Revision Name                   ; quartus_compile                             ;
-; Top-level Entity Name           ; quartus_compile                             ;
-; Family                          ; Cyclone V                                   ;
-; Device                          ; 5CEBA4F23C8                                 ;
-; Timing Models                   ; Final                                       ;
-; Logic utilization (in ALMs)     ; 16,909 / 18,480 ( 91 % )                    ;
-; Total registers                 ; 46110                                       ;
-; Total pins                      ; 0 / 224 ( 0 % )                             ;
-; Total virtual pins              ; 71                                          ;
-; Total block memory bits         ; 399,652 / 3,153,920 ( 13 % )                ;
-; Total DSP Blocks                ; 66 / 66 ( 100 % )                           ;
-; Total HSSI RX PCSs              ; 0                                           ;
-; Total HSSI PMA RX Deserializers ; 0                                           ;
-; Total HSSI TX PCSs              ; 0                                           ;
-; Total HSSI PMA TX Serializers   ; 0                                           ;
-; Total PLLs                      ; 0 / 4 ( 0 % )                               ;
-; Total DLLs                      ; 0 / 4 ( 0 % )                               ;
-+---------------------------------+---------------------------------------------+
 ```

@@ -3,6 +3,8 @@
 
 #include <iostream>
 #include <fstream>
+#include <sstream>
+#include <string>
 
 #include "HLS/hls.h"
 #include "HLS/math.h"
@@ -11,14 +13,48 @@
 
 #include "dfr.h"
 
-// narma10 inputs
-DFR_FP* narma10_inputs(int size){
+// iq inputs
+DFR_FP* iq_inputs(int size){
 
     DFR_FP* inputs = (DFR_FP*) malloc(sizeof(DFR_FP)*size);
 
+    // File pointer
+    std::fstream spectrum_file;
+  
+    // Open an existing file
+    spectrum_file.open("./data/ss_data_0db.csv", std::iostream::in);
+
+    std::string line, data_field;
+
     for (int i = 0; i < size; i++){
-        DFR_FP u = 0.5 * DFR_FP(static_cast<float>(rand()) / static_cast<float>(RAND_MAX));
-        inputs[i] = u;
+        // DFR_FP u = 0.5 * DFR_FP(static_cast<float>(rand()) / static_cast<float>(RAND_MAX));
+        // inputs[i] = u;
+
+        // read an entire row and
+        // store it in a string variable 'line'
+        std::getline(spectrum_file, line);
+  
+        // used for breaking words
+        std::stringstream s(line);
+  
+        // read every column data of a row and
+        // store it in a string variable, 'word'
+        int j = 0;
+        float i_data = 0, q_data = 0;
+        while (std::getline(s, data_field, ',')) {
+            if (j == 2){
+                printf("i = %s\n",data_field.c_str());
+            }
+            else if(j == 3){
+                printf("q = %s\n",data_field.c_str());
+            }
+  
+            // add all the column data
+            // of a row to a vector
+            j++;
+        }
+
+        // printf("i = %f, q = %f");
 
         // printf("u[%d] = %f\n",i,u);
     }
@@ -26,8 +62,8 @@ DFR_FP* narma10_inputs(int size){
     return inputs;
 }
 
-// narma10 outputs
-DFR_FP* narma10_outputs(DFR_FP* inputs, int size){
+// spectrum outputs
+DFR_FP* spectrum_outputs(DFR_FP* inputs, int size){
 
     DFR_FP* outputs = (DFR_FP*) malloc(sizeof(DFR_FP)*size);
 

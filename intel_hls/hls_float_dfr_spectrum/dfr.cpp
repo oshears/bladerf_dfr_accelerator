@@ -167,13 +167,13 @@ int main() {
 
   // define sample counts
   constexpr int NUM_INIT_SAMPLES = 200;
-  constexpr int NUM_TEST_SAMPLES = 15000;
+  constexpr int NUM_TEST_SAMPLES = 1000;
   constexpr int NUM_TOTAL_SAMPLES = NUM_INIT_SAMPLES + NUM_TEST_SAMPLES;
 
   // generate narma10 inputs and outputs
   printf("Creating input and output data vectors...\n");
-  DFR_FP* u = narma10_inputs(NUM_TOTAL_SAMPLES);
-  DFR_FP* y = narma10_outputs(u,NUM_TOTAL_SAMPLES);
+  DFR_FP* u = iq_inputs(NUM_TOTAL_SAMPLES);
+  DFR_FP* y = spectrum_outputs(u,NUM_TOTAL_SAMPLES);
 
 
   // get test data vectors
