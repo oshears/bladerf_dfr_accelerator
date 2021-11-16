@@ -11,6 +11,10 @@ using namespace ihc;
 // using DFR_FP = FPhalf;
 using DFR_FP = hls_float<8, 17, fp_config::FP_Round::RNE>;
 
+// global weight and mask data
+extern DFR_FP MASK[];
+extern DFR_FP W[];
+
 //mackey glass function
 DFR_FP mackey_glass(DFR_FP x);
 
@@ -36,4 +40,10 @@ DFR_FP* get_vector_indexes(DFR_FP* vector, int idx_0, int idx_1);
 // read data from file
 DFR_FP* read_DFR_FP_vector_from_file(char const* fileName, int size);
 
+
+// hls dfr component for spectrum sensing
+component DFR_FP dfr(DFR_FP i_data, DFR_FP q_data);
+
+// main function
+int main();
 
