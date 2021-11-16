@@ -63,3 +63,8 @@ Synchronizer
 
 ### handshake
 Handshakes
+
+## ToDo
+- Convert IQ data to meet ADC range (12 bits)
+- Negative values are below half of the ADC range (values less than 2^6)
+- Might need to scale values to fit within the 12 bit range
