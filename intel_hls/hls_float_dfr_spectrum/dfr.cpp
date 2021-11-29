@@ -20,7 +20,7 @@ DFR_FP mackey_glass(DFR_FP x){
     return (C * x) / (a + c * ihc_pow(b * x,p));
 }
 
-component DFR_FP dfr(DFR_FP i_data, DFR_FP q_data) {
+component DFR_FP dfr(int i_data, int q_data) {
 
   // dfr parameters
   constexpr int N = 50;
@@ -36,7 +36,8 @@ component DFR_FP dfr(DFR_FP i_data, DFR_FP q_data) {
   DFR_FP dfr_out = 0;
 
   // calculate energy
-  DFR_FP sample = ihc_sqrt(ihc_pow(i_data,DFR_FP(2)) + ihc_pow(q_data,DFR_FP(2)));
+  // DFR_FP sample = ihc_sqrt(ihc_pow(i_data,DFR_FP(2)) + ihc_pow(q_data,DFR_FP(2)));
+  DFR_FP sample = ihc_sqrt(DFR_FP(i_data * i_data + q_data * q_data));
   
   // loop through each masked input subsample
   for(int node_idx = 0; node_idx < N; node_idx++){

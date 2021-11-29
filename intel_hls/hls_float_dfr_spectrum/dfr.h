@@ -22,10 +22,10 @@ void config_mask_weight();
 DFR_FP mackey_glass(DFR_FP x);
 
 // iq inputs: 2D array of size (2 x size)
-DFR_FP** iq_inputs(int size);
+int** iq_inputs(int size);
 
 // spectrum outputs
-DFR_FP* spectrum_outputs(int size);
+bool* spectrum_outputs(int size);
 
 // Frobenius norm
 DFR_FP norm(DFR_FP x);
@@ -45,7 +45,7 @@ DFR_FP* read_DFR_FP_vector_from_file(char const* fileName, int size);
 
 
 // hls dfr component for spectrum sensing
-component DFR_FP dfr(DFR_FP i_data, DFR_FP q_data);
+component DFR_FP dfr(int i_data, int q_data);
 
 // main function
 int main();

@@ -138,15 +138,15 @@ print(f"Ridge Regression Accuracy:\t{accuracy}")
 # write dfr config data
 
 # input data
-fh = open("./dfr_config/float_input_data.txt","w")
+fh = open("./dfr_config/spectrum_data.csv","w")
 for i in range(num_samples):
-    fh.write(str(x[i]) + "\n")
+    fh.write(str(i_data[i].astype(int)) + "," + str(q_data[i].astype(int)) + "," + str(y[i].astype(int)) + "\n")
 fh.close()
 
 # output data
 fh = open("./dfr_config/float_output_data.txt","w")
 for i in range(num_samples):
-    fh.write(str(y[i]) + "\n")
+    fh.write(str(y[i].astype(int)) + "\n")
 fh.close()
 
 # mask

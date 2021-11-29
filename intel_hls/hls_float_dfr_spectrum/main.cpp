@@ -12,14 +12,14 @@ using namespace ihc;
 int main() {
 
   // define sample counts
-  constexpr int NUM_INIT_SAMPLES = 200;
-  constexpr int NUM_TEST_SAMPLES = 1000;
+  constexpr int NUM_INIT_SAMPLES = 100;
+  constexpr int NUM_TEST_SAMPLES = 3000;
   constexpr int NUM_TOTAL_SAMPLES = NUM_INIT_SAMPLES + NUM_TEST_SAMPLES;
 
   // generate narma10 inputs and outputs
   printf("Creating input and output data vectors...\n");
-  DFR_FP** u = iq_inputs(NUM_TOTAL_SAMPLES);
-  DFR_FP* y = spectrum_outputs(NUM_TOTAL_SAMPLES);
+  int** u = iq_inputs(NUM_TOTAL_SAMPLES);
+  bool* y = spectrum_outputs(NUM_TOTAL_SAMPLES);
 
 
   // get test data vectors
