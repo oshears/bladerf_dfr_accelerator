@@ -22,7 +22,7 @@ num_samples = train_samples + init_samples
 
 rng = np.random.default_rng(0)
 
-ss_data = np.genfromtxt('ss_data_0db.csv', delimiter=',')
+ss_data = np.genfromtxt('ss_data_-10db.csv', delimiter=',')
 
 # x = ss_data[:,4]
 ADC_RES = 2**12
