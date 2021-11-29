@@ -1,3 +1,5 @@
+#!/usr/bin/python3
+
 import numpy as np
 import matplotlib.pyplot as plt
 
@@ -20,10 +22,25 @@ num_samples = train_samples + init_samples
 
 rng = np.random.default_rng(0)
 
-ss_data = np.genfromtxt('ss_data_-10db.csv', delimiter=',')
+ss_data = np.genfromtxt('ss_data_0db.csv', delimiter=',')
 
-x = ss_data[:,4]
+# x = ss_data[:,4]
+ADC_RES = 2**12
+ADC_HALF_RES = 2**6
+print(f"Max I: {np.max(ss_data[:,2])}; Max Q: {np.max(ss_data[:,3])}")
+i_data = ((ss_data[:,2] / np.max(ss_data[:,2])) * (ADC_HALF_RES)).astype(int)
+q_data = ((ss_data[:,3] / np.max(ss_data[:,3])) * (ADC_HALF_RES)).astype(int)
+# x = np.sqrt(np.power(ss_data[:,2],2) + np.power(ss_data[:,3],2))
+x = np.sqrt(np.power(i_data,2) + np.power(q_data,2))
 y = ss_data[:,5]
+
+# write data
+fh = open("ss_data_adc_0db.csv","w")
+for i in range(np.size(ss_data[:,5])):
+    i = i_data[i] + ADC_HALF_RES
+    q = q_data[i] + ADC_HALF_RES
+    fh.write(f"{i},{q},{hex(i)},{hex(q)},{ss_data[i,5]}\n")
+fh.close()
 
 y_train = y[init_samples:init_samples+train_samples]
 
@@ -106,15 +123,10 @@ for i in range(train_samples):
         
     reservoir_history[i] = reservoir
 
-loss = (np.linalg.norm(y_train - y_hat) / np.linalg.norm(y_train))
-print(f"SGD NRMSE:\t{loss}")
-
 # regression approach
 reg = 1e-8
 W = np.dot(np.dot(y_train,reservoir_history),np.linalg.inv((np.dot(reservoir_history.T,reservoir_history)) + reg * np.eye(N)))
 y_hat_reg = reservoir_history.dot(W)
-loss = (np.linalg.norm(y_train - y_hat_reg) / np.linalg.norm(y_train))
-print(f"Ridge Regression NRMSE:\t{loss}")
 
 y_hat_reg_bin = y_hat_reg.copy()
 y_hat_reg_bin[y_hat_reg_bin >= 0.5] = 1
