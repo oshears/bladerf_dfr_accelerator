@@ -34,14 +34,6 @@ q_data = ((ss_data[:,3] / np.max(ss_data[:,3])) * (ADC_HALF_RES)).astype(int)
 x = np.sqrt(np.power(i_data,2) + np.power(q_data,2))
 y = ss_data[:,5]
 
-# write data
-fh = open("ss_data_adc_0db.csv","w")
-for i in range(np.size(ss_data[:,5])):
-    i = i_data[i] + ADC_HALF_RES
-    q = q_data[i] + ADC_HALF_RES
-    fh.write(f"{i},{q},{hex(i)},{hex(q)},{ss_data[i,5]}\n")
-fh.close()
-
 y_train = y[init_samples:init_samples+train_samples]
 
 N = 50
@@ -122,6 +114,14 @@ for i in range(train_samples):
         y_hat[i] += W[j] * g_i
         
     reservoir_history[i] = reservoir
+
+# loss = (np.linalg.norm(y_train - y_hat) / np.linalg.norm(y_train))
+# print(f"SGD NRMSE:\t{loss}")
+y_hat_bin = y_hat.copy()
+y_hat_bin[y_hat_bin >= 0.5] = 1
+y_hat_bin[y_hat_bin < 0.5] = 0
+accuracy = (y_hat_bin == y_train).mean()
+print(f"SGD Accuracy:\t{accuracy}")
 
 # regression approach
 reg = 1e-8
