@@ -24,8 +24,6 @@ int main() {
 
   // get test data vectors
   printf("Parsing test input and output vectors...\n");
-  // DFR_FP* u_test = get_vector_indexes(u,NUM_INIT_SAMPLES,NUM_TOTAL_SAMPLES);
-  // DFR_FP* y_test = get_vector_indexes(y,NUM_INIT_SAMPLES,NUM_TOTAL_SAMPLES);
 
   // store test data outputs
   DFR_FP y_hat_test[NUM_TEST_SAMPLES];
@@ -39,14 +37,6 @@ int main() {
   printf("Testing DFR...\n");
   for(unsigned int i = 0; i < NUM_TEST_SAMPLES; i++) ihc_hls_enqueue(&y_hat_test[i], &dfr,u[i+NUM_INIT_SAMPLES][0],u[i+NUM_INIT_SAMPLES][1]);
   ihc_hls_component_run_all(dfr);
-
-  // calculate the NRMSE of the predicted output
-  // DFR_FP nrmse = get_nrmse(y_hat_test,y_test,NUM_TEST_SAMPLES);
-  // printf("Test NRMSE\t= %s\n",nrmse.get_str().c_str());
-
-  // calculate the MSE of the predicted output
-  // DFR_FP mse = get_mse(y_hat_test,y,NUM_TEST_SAMPLES);
-  // printf("Test MSE\t= %s\n",mse.get_str().c_str());
 
   // calculate accuracy
   float accuracy = 0;
