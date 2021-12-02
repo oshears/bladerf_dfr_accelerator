@@ -12,11 +12,11 @@ using namespace ihc;
 using DFR_FP = hls_float<8, 17, fp_config::FP_Round::RNE>;
 
 // global weight and mask data
-extern DFR_FP MASK[];
-extern DFR_FP W[];
+// extern DFR_FP MASK[];
+// extern DFR_FP W[];
 
 // configure global mask and weight data
-void config_mask_weight();
+// void config_mask_weight();
 
 //mackey glass function
 DFR_FP mackey_glass(DFR_FP x);
