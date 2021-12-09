@@ -22,7 +22,7 @@ using DFR_FP = hls_float<8, 17, fp_config::FP_Round::RNE>;
 DFR_FP mackey_glass(DFR_FP x);
 
 // iq inputs: 2D array of size (2 x size)
-int** iq_inputs(int size);
+short** iq_inputs(int size);
 
 // spectrum outputs
 bool* spectrum_outputs(int size);
@@ -45,7 +45,7 @@ DFR_FP* read_DFR_FP_vector_from_file(char const* fileName, int size);
 
 
 // hls dfr component for spectrum sensing
-component DFR_FP dfr(int i_data, int q_data);
+component bool dfr(short i_data, short q_data);
 
 // main function
 int main();

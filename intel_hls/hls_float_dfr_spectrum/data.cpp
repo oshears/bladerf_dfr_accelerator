@@ -14,9 +14,9 @@
 #include "dfr.h"
 
 // iq inputs
-int** iq_inputs(int size){
+short** iq_inputs(int size){
 
-    int** inputs = (int**) malloc(sizeof(int*) * size);
+    short** inputs = (short**) malloc(sizeof(short*) * size);
 
 
     // File pointer
@@ -28,7 +28,7 @@ int** iq_inputs(int size){
     std::string line, data_field;
 
     for (int i = 0; i < size; i++){
-        inputs[i] = (int*) malloc(sizeof(int*) * 2);
+        inputs[i] = (short*) malloc(sizeof(short*) * 2);
 
         // read an entire row and
         // store it in a string variable 'line'
@@ -91,26 +91,6 @@ bool* spectrum_outputs(int size){
 
         // printf("spectrum_out = %s\n",outputs[i].get_str().c_str());
     }
-
-    return outputs;
-}
-
-DFR_FP* read_DFR_FP_vector_from_file(char const* fileName, int size){
-    DFR_FP* outputs = (DFR_FP*)  malloc(sizeof(DFR_FP)*size);
-
-    std::ifstream inFile;
-    inFile.open(fileName);
-
-    std::string line;
-    int i = 0;
-    if (inFile.is_open()){
-        while ( getline (inFile,line) && i < size){
-            outputs[i++] = std::stof(line);
-            // printf("W[%d] = %d\n",i - 1,W[i - 1]);            
-        }
-        inFile.close();
-    }
-
 
     return outputs;
 }

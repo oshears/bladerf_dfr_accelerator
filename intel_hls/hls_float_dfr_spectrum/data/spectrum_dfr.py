@@ -16,22 +16,27 @@ def mg(x):
 
 init_samples = 100
 train_samples = 3000
+test_samples = 2 * init_samples - train_samples
 
 num_samples = train_samples + init_samples
 
 
 rng = np.random.default_rng(0)
 
-ss_data = np.genfromtxt('ss_data_-10db.csv', delimiter=',')
+SNR = "-10db"
 
-# x = ss_data[:,4]
-ADC_RES = 2**12
-ADC_HALF_RES = 2**6
+ss_data = np.genfromtxt(f'ss_data_{SNR}.csv', delimiter=',')
+
+ADC_MAX_SIGNED = 2**11
+
+# normalize, convert to 16 bit representation
 print(f"Max I: {np.max(ss_data[:,2])}; Max Q: {np.max(ss_data[:,3])}")
-i_data = ((ss_data[:,2] / np.max(ss_data[:,2])) * (ADC_HALF_RES)).astype(int)
-q_data = ((ss_data[:,3] / np.max(ss_data[:,3])) * (ADC_HALF_RES)).astype(int)
-# x = np.sqrt(np.power(ss_data[:,2],2) + np.power(ss_data[:,3],2))
-x = np.sqrt(np.power(i_data,2) + np.power(q_data,2))
+i_data = ((ss_data[:,2] / np.max(ss_data[:,2])) * (ADC_MAX_SIGNED)).astype(np.short)
+q_data = ((ss_data[:,3] / np.max(ss_data[:,3])) * (ADC_MAX_SIGNED)).astype(np.short)
+
+i_data_norm = i_data / ADC_MAX_SIGNED
+q_data_norm = q_data / ADC_MAX_SIGNED
+x = np.sqrt(np.power(i_data_norm,2) + np.power(q_data_norm,2))
 y = ss_data[:,5]
 
 y_train = y[init_samples:init_samples+train_samples]
@@ -138,10 +143,20 @@ print(f"Ridge Regression Accuracy:\t{accuracy}")
 # write dfr config data
 
 # input data
-fh = open("./dfr_config/spectrum_data.csv","w")
+fh = open(f"./dfr_config/spectrum_data_{SNR}.csv","w")
 for i in range(num_samples):
-    fh.write(str(i_data[i].astype(int)) + "," + str(q_data[i].astype(int)) + "," + str(y[i].astype(int)) + "\n")
+    fh.write(str(i_data[i]) + "," + str(q_data[i]) + "," + str(y[i].astype(int)) + "\n")
 fh.close()
+
+# write input data hex file (all data)
+fh = open(f"./dfr_config/iq_data_rom_{SNR}.hex","w")
+addr = 0x0000
+for i in range(i_data.size):
+    fh.write(':04{:04x}00{:04x}{:04x}FF\n'.format(addr,i_data[i] & 0xffff,q_data[i] & 0xffff))
+    addr += 1
+fh.write(':00000001FF')
+fh.close()
+# NOTE: need to resave file after writing to update checksum values
 
 # output data
 fh = open("./dfr_config/float_output_data.txt","w")
@@ -160,3 +175,47 @@ fh = open("./dfr_config/float_weight_data.txt","w")
 for i in range(N):
     fh.write(str(W[i]) + "\n")
 fh.close()
+
+
+# a = -5
+# bin(a & 0xffffffff)
+# '0b10000000000000000110001000000000'
+
+# format(a & 0xffffffff, '32b')
+# '10000000000000000110001000000000'
+# '{:32b}'.format(a & 0xffffffff)
+# '10000000000000000110001000000000'
+
+#################### testing
+
+'''
+# initialization
+reservoir = np.zeros(N)
+for i in range(init_samples):
+    for j in range(N):
+        g_i = mg(gamma * masked_samples[i][j] + eta * reservoir[LAST_NODE])
+        reservoir[1:N] = reservoir[0:LAST_NODE]
+        reservoir[0] = g_i
+
+# training data evaluation
+y_hat = np.zeros(test_samples)
+for i in range(train_samples):
+    for j in range(N):
+
+        g_i = mg(gamma * masked_samples[i + init_samples][j] + eta * reservoir[LAST_NODE])
+        reservoir[1:N] = reservoir[0:LAST_NODE]
+        reservoir[0] = g_i
+
+        y_hat[i] += W[j] * g_i
+        
+    reservoir_history[i] = reservoir
+
+y_hat_reg = reservoir_history.dot(W)
+
+y_hat_reg_bin = y_hat_reg.copy()
+y_hat_reg_bin[y_hat_reg_bin >= 0.5] = 1
+y_hat_reg_bin[y_hat_reg_bin < 0.5] = 0
+accuracy = (y_hat_reg_bin == y_train).mean()
+print(f"Ridge Regression Accuracy (Test):\t{accuracy}")
+
+'''

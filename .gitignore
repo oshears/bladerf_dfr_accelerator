@@ -4,3 +4,4 @@ test-fpga
 transcript
 .vscode
 .DS_Store
+verilog/dfr_hls_tb

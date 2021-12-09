@@ -18,7 +18,7 @@ int main() {
 
   // generate narma10 inputs and outputs
   printf("Creating input and output data vectors...\n");
-  int** u = iq_inputs(NUM_TOTAL_SAMPLES);
+  short** u = iq_inputs(NUM_TOTAL_SAMPLES);
   bool* y = spectrum_outputs(NUM_TOTAL_SAMPLES);
 
 
@@ -26,7 +26,7 @@ int main() {
   printf("Parsing test input and output vectors...\n");
 
   // store test data outputs
-  DFR_FP y_hat_test[NUM_TEST_SAMPLES];
+  bool y_hat_test[NUM_TEST_SAMPLES];
 
   // reservoir initialization
   printf("Initializing Reservoir...\n");
@@ -41,8 +41,8 @@ int main() {
   // calculate accuracy
   float accuracy = 0;
   for(int i = 0; i < NUM_TEST_SAMPLES; i++){
-    bool prediction = (y_hat_test[i] >= 0.5);
-    if(prediction == y[i+NUM_INIT_SAMPLES]) accuracy++;
+    // bool prediction = (y_hat_test[i] >= 0.5);
+    if(y_hat_test[i] == y[i+NUM_INIT_SAMPLES]) accuracy++;
   }
   accuracy = accuracy / NUM_TEST_SAMPLES;
   printf("Test Accuracy = %f\n",accuracy);
