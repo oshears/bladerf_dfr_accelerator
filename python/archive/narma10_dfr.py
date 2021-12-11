@@ -158,30 +158,30 @@ plt.show()
 
 # write dfr config data
 
-# input data
-fh = open("./dfr_config/float_input_data.txt","w")
-for i in range(num_samples):
-    # fh.write(str(int(mask[i] * (2**16))) + "\n")
-    fh.write(str(x[i]) + "\n")
-fh.close()
+# # input data
+# fh = open("./dfr_config/float_input_data.txt","w")
+# for i in range(num_samples):
+#     # fh.write(str(int(mask[i] * (2**16))) + "\n")
+#     fh.write(str(x[i]) + "\n")
+# fh.close()
 
-# output data
-fh = open("./dfr_config/float_output_data.txt","w")
-for i in range(num_samples):
-    # fh.write(str(int(mask[i] * (2**16))) + "\n")
-    fh.write(str(y[i]) + "\n")
-fh.close()
+# # output data
+# fh = open("./dfr_config/float_output_data.txt","w")
+# for i in range(num_samples):
+#     # fh.write(str(int(mask[i] * (2**16))) + "\n")
+#     fh.write(str(y[i]) + "\n")
+# fh.close()
 
-# mask
-fh = open("./dfr_config/float_mask_data.txt","w")
-for i in range(N):
-    # fh.write(str(int(mask[i] * (2**16))) + "\n")
-    fh.write(str(mask[i]) + "\n")
-fh.close()
+# # mask
+# fh = open("./dfr_config/float_mask_data.txt","w")
+# for i in range(N):
+#     # fh.write(str(int(mask[i] * (2**16))) + "\n")
+#     fh.write(str(mask[i]) + "\n")
+# fh.close()
 
-# weights
-fh = open("./dfr_config/float_weight_data.txt","w")
-for i in range(N):
-    # fh.write(str(int(W[i] * (2**16))) + "\n")
-    fh.write(str(W[i]) + "\n")
-fh.close()
+# # weights
+# fh = open("./dfr_config/float_weight_data.txt","w")
+# for i in range(N):
+#     # fh.write(str(int(W[i] * (2**16))) + "\n")
+#     fh.write(str(W[i]) + "\n")
+# fh.close()
