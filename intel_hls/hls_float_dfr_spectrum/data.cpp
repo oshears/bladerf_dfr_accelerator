@@ -23,7 +23,7 @@ short** iq_inputs(int size){
     std::fstream spectrum_file;
   
     // Open an existing file
-    spectrum_file.open("./data/spectrum_data_-10db.csv", std::iostream::in);
+    spectrum_file.open("./spectrum_data/spectrum_data_adc_-10db.csv", std::iostream::in);
 
     std::string line, data_field;
 
@@ -66,7 +66,7 @@ bool* spectrum_outputs(int size){
     std::fstream spectrum_file;
   
     // Open an existing file
-    spectrum_file.open("./data/spectrum_data_-10db.csv", std::iostream::in);
+    spectrum_file.open("./spectrum_data/spectrum_data_adc_-10db.csv", std::iostream::in);
 
     std::string line, data_field;
 
