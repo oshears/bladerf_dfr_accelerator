@@ -18,7 +18,7 @@ The last major component is the Analog Devices AD9361 RF transceiver. The transc
 
 The challenge in developing custom hardware to run on the programmable logic of this device is the difficulty in learning and adapting custom hardware intellectual property (IP) to the bladeRF's FPGA architecture. [Nuand has provided documentation to explain the software and hardware features of their device](https://github.com/Nuand/bladeRF/wiki/FPGA-Development). However, designers must still spend time dissecting the extensive list of VHDL and Verilog source code that is used to program the FPGA in order to adequately integrate their own IP. The following sections will breakdown the bladeRF's FPGA architecture to provide readers with an understanding of the functional units in this SDR system.
 
-![](bladeRF-2.0-micro-block-diagram.png)
+![](docs/bladeRF-2.0-micro-block-diagram.png)
 
 ## bladeRF FPGA Development
 
@@ -30,7 +30,7 @@ The RX FIFO acts as a buffer that synchronizes the rate at which the host is req
 
 The bladeRF Python package is used to read the received samples from the bladeRF device. In addition to reading and writing data to the device, the package can also be used to program the FPGA with a custom bit file (.rbf).
 
-![](bladerf_micro_block_diagram.png)
+![](docs/bladerf_micro_block_diagram.png)
 
 ## Repository Overview
 - `python`
