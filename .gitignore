@@ -6,3 +6,5 @@ transcript
 .DS_Store
 verilog/dfr_hls_tb
 rx.txt
+python/bladerf_demo/bladerf_txrx/rx_r0t0_4502M.bin
+python/bladerf_demo/bladerf_txrx/rx_r0t0_1537M.bin
