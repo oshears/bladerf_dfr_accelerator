@@ -257,6 +257,13 @@ def receive(device, channel : int, freq : int, rate : int, gain : int,
             # Write to file
             outfile.write(buf[:num*bytes_per_sample])
 
+            with open("rx_data.txt", 'w') as outfile:
+                    # Write to file
+                    # print(buf[:bytes_per_sample])
+                    for i in range(num*bytes_per_sample):
+                        outfile.write(str(int(buf[i])) + "\n")
+                        # outfile.write(buf[:num*bytes_per_sample])
+
     # Disable module
     print( "RX: Stop" )
     ch.enable = False
@@ -304,6 +311,10 @@ if( uut == None ):
 b          = _bladerf.BladeRF( uut )
 board_name = b.board_name
 fpga_size  = b.fpga_size
+
+
+b.set_rx_mux(_bladerf.RXMux.Digital_Loopback)
+print("RX Mux Value: ",b.get_rx_mux())
 
 
 if( config.getboolean(board_name + '-load-fpga', 'enable') ):
