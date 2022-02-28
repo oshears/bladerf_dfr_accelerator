@@ -260,9 +260,20 @@ def receive(device, channel : int, freq : int, rate : int, gain : int,
             with open("rx_data.txt", 'w') as outfile:
                     # Write to file
                     # print(buf[:bytes_per_sample])
-                    for i in range(num*bytes_per_sample):
-                        outfile.write(str(int(buf[i])) + "\n")
+                    # for i in range(num*bytes_per_sample):
+                        # outfile.write(str((int(buf[i]))) + "\n")
                         # outfile.write(buf[:num*bytes_per_sample])
+                    # for i in range(num*bytes_per_sample):
+                    for i in range(num):
+                        # if i % 4 == 0:
+                        #    # outfile.write(str((int(buf[i]))) + "\n")
+                        sampleBytes = []
+                        sampleBytes.append(bin(int(buf[bytes_per_sample*i + 0]))[2:])
+                        sampleBytes.append(bin(int(buf[bytes_per_sample*i + 1]))[2:])
+                        sampleBytes.append(bin(int(buf[bytes_per_sample*i + 2]))[2:])
+                        sampleBytes.append(bin(int(buf[bytes_per_sample*i + 3]))[2:])
+                        # combinedNumStr = bin()
+                        outfile.write(sampleBytes[3] + "_" + sampleBytes[2] + "_" + sampleBytes[1] + "_" + sampleBytes[0] + "\n")
 
     # Disable module
     print( "RX: Stop" )
