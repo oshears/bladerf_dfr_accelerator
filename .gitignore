@@ -8,3 +8,10 @@ verilog/dfr_hls_tb
 rx.txt
 python/bladerf_demo/bladerf_txrx/rx_r0t0_4502M.bin
 python/bladerf_demo/bladerf_txrx/rx_r0t0_1537M.bin
+
+# simulation files
+*.wlf
+transcript
+fpga/dfr_tb/libraries
+python/bladerf_demo/bladerf_txrx_rom/rx_r0t0_1537M.bin
+*.bin

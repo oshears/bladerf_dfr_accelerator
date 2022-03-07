@@ -268,12 +268,12 @@ def receive(device, channel : int, freq : int, rate : int, gain : int,
                         # if i % 4 == 0:
                         #    # outfile.write(str((int(buf[i]))) + "\n")
                         sampleBytes = []
-                        sampleBytes.append(bin(int(buf[bytes_per_sample*i + 0]))[2:])
-                        sampleBytes.append(bin(int(buf[bytes_per_sample*i + 1]))[2:])
-                        sampleBytes.append(bin(int(buf[bytes_per_sample*i + 2]))[2:])
-                        sampleBytes.append(bin(int(buf[bytes_per_sample*i + 3]))[2:])
+                        sampleBytes.append(format(int(buf[bytes_per_sample*i + 0]),'#010b')[2:])
+                        sampleBytes.append(format(int(buf[bytes_per_sample*i + 1]),'#010b')[2:])
+                        sampleBytes.append(format(int(buf[bytes_per_sample*i + 2]),'#010b')[2:])
+                        sampleBytes.append(format(int(buf[bytes_per_sample*i + 3]),'#010b')[2:])
                         # combinedNumStr = bin()
-                        outfile.write(sampleBytes[3] + "_" + sampleBytes[2] + "_" + sampleBytes[1] + "_" + sampleBytes[0] + "\n")
+                        outfile.write(sampleBytes[3] + "" + sampleBytes[2] + "_" + sampleBytes[1] + "" + sampleBytes[0] + "\n")
 
     # Disable module
     print( "RX: Stop" )
