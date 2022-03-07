@@ -4,12 +4,35 @@
 
 module dfr_tb;
 
+    reg reset = 1;
     reg clock = 0;
-    reg start = 0;
-    reg resetn = 1;
-    reg[15:0] i, q;
+    reg[15:0] i = 0, q = 0;
+    reg [31:0] dfr_input_count = 32'h0000_0000;
+
+    wire start;
+    wire resetn;
     wire busy, done;
     wire [25:0] dfr_output;
+
+    wire dfr_input_count_reset;
+    wire dfr_input_count_inc;
+    wire dfr_output_ram_wen;
+    wire resetn;
+    wire dfr_fsm_done;
+
+    dfr_fsm dfr_ip_fsm(
+        .clk(clock),
+        .reset(reset),
+        .dfr_done(done),
+        .dfr_busy(busy),
+        .dfr_input_count(dfr_input_count),
+        .dfr_input_count_reset(dfr_input_count_reset),
+        .dfr_input_count_inc(dfr_input_count_inc),
+        .dfr_resetn(resetn),
+        .dfr_start(start),
+        .dfr_output_ram_wen(dfr_output_ram_wen),
+        .dfr_fsm_done(dfr_fsm_done)
+    );
 
     dfr_internal dfr_ip(
 		.start(start),
@@ -29,35 +52,24 @@ module dfr_tb;
     
     initial // initial block executes only once
         begin
-            resetn = 0;
+            reset = 1;
             @(posedge clock);
-            resetn = 1;
+            reset = 0;
 
-            @(posedge clock);
             i = 1;
             q = 2;
 
-            start = 1;
-            @(posedge clock);
-            @(busy == 0);
-            @(posedge clock);
-            start = 0;
-            @(negedge done);
+            @(posedge dfr_input_count_inc);
+            dfr_input_count = 32'h0000_0001;
+            i = 2;
+            q = 3;
+            
+            @(posedge dfr_input_count_inc);
+            dfr_input_count = 32'hFFFF_FFFF;
+            i = 4;
+            q = 5;
 
-            start = 1;
-            @(posedge clock);
-            @(busy == 0);
-            @(posedge clock);
-            start = 0;
-            @(negedge done);
-
-            start = 1;
-            @(posedge clock);
-            @(busy == 0);
-            @(posedge clock);
-            start = 0;
-            @(negedge done);
-
+            @(posedge dfr_fsm_done);
             $finish;
 
         end
