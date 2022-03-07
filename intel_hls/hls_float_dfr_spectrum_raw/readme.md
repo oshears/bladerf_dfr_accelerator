@@ -51,3 +51,10 @@ make test-fpga DEVICE=CycloneV
 ; Total DLLs                      ; 0 / 4 ( 0 % )                               ;
 +---------------------------------+---------------------------------------------+
 ```
+
+# Generating IP with Quartus
+1. Quartus
+2. Open Platform Designer
+3. Open DFR .qsys project file
+4. Generate HDL
+5. Add synthesis IP to bladeRF directory

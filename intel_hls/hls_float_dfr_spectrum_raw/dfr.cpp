@@ -9,74 +9,63 @@
 
 using namespace ihc;
 
-DFR_FP mackey_glass(DFR_FP x){
+extern "C" {
 
-    DFR_FP C = 2;
-    DFR_FP b = 2.1;
-    DFR_FP p = 10;
-    DFR_FP a = 0.8;
-    DFR_FP c = 0.2;
+const DFR_FP MASK[] = {
+DFR_FP(0.28709830748868337),
+DFR_FP(-0.26063055700704785),
+DFR_FP(0.3764842308107038),
+DFR_FP(-0.44143196519480565),
+DFR_FP(-0.16388293945433963),
+DFR_FP(-0.34972053310516094),
+DFR_FP(-0.049660633350713024),
+DFR_FP(0.29632427028729424),
+DFR_FP(-0.26935779100625257),
+DFR_FP(-0.4479786989355904),
+DFR_FP(-0.0954481601784718),
+DFR_FP(-0.30148695549074467),
+DFR_FP(-0.4092469543808781),
+DFR_FP(0.08033238598685066),
+DFR_FP(-0.2013038671810774),
+DFR_FP(0.17199487795635937),
+DFR_FP(-0.3004845560317867),
+DFR_FP(0.4421131105064978),
+DFR_FP(-0.13488983175517144),
+DFR_FP(-0.3945047204297705),
+DFR_FP(0.12910815153970923),
+DFR_FP(0.4271545530678674),
+DFR_FP(-0.05962284528421602),
+DFR_FP(0.45459049369073723),
+DFR_FP(-0.00010418631235298292),
+DFR_FP(-0.07477137515092447),
+DFR_FP(0.12021345201537781),
+DFR_FP(0.4950965052353241),
+DFR_FP(0.4489436749377653),
+DFR_FP(-0.039954860690903926),
+DFR_FP(0.25772884530829143),
+DFR_FP(-0.002577304512381029),
+DFR_FP(0.02931216019677041),
+DFR_FP(0.2857857007138075),
+DFR_FP(-0.08534415064432921),
+DFR_FP(0.23448357178872936),
+DFR_FP(0.21114287798974984),
+DFR_FP(0.43205968661337824),
+DFR_FP(-0.3850673667190948),
+DFR_FP(0.2290151170763094),
+DFR_FP(0.4274239286245599),
+DFR_FP(0.4679261899246464),
+DFR_FP(-0.4852936950346307),
+DFR_FP(0.36364009024557575),
+DFR_FP(0.4811950400663443),
+DFR_FP(0.45721017961096355),
+DFR_FP(-0.3512359877675021),
+DFR_FP(0.47262881382295496),
+DFR_FP(0.38993555572052063),
+DFR_FP(0.3223738275430704)
+};
 
-    return (C * x) / (a + c * ihc_pow(b * x,p));
-}
-
-component DFR_FP dfr(short i_data, short q_data) {
-  DFR_FP MASK[] = {
-  DFR_FP(0.28709830748868337),
-  DFR_FP(-0.26063055700704785),
-  DFR_FP(0.3764842308107038),
-  DFR_FP(-0.44143196519480565),
-  DFR_FP(-0.16388293945433963),
-  DFR_FP(-0.34972053310516094),
-  DFR_FP(-0.049660633350713024),
-  DFR_FP(0.29632427028729424),
-  DFR_FP(-0.26935779100625257),
-  DFR_FP(-0.4479786989355904),
-  DFR_FP(-0.0954481601784718),
-  DFR_FP(-0.30148695549074467),
-  DFR_FP(-0.4092469543808781),
-  DFR_FP(0.08033238598685066),
-  DFR_FP(-0.2013038671810774),
-  DFR_FP(0.17199487795635937),
-  DFR_FP(-0.3004845560317867),
-  DFR_FP(0.4421131105064978),
-  DFR_FP(-0.13488983175517144),
-  DFR_FP(-0.3945047204297705),
-  DFR_FP(0.12910815153970923),
-  DFR_FP(0.4271545530678674),
-  DFR_FP(-0.05962284528421602),
-  DFR_FP(0.45459049369073723),
-  DFR_FP(-0.00010418631235298292),
-  DFR_FP(-0.07477137515092447),
-  DFR_FP(0.12021345201537781),
-  DFR_FP(0.4950965052353241),
-  DFR_FP(0.4489436749377653),
-  DFR_FP(-0.039954860690903926),
-  DFR_FP(0.25772884530829143),
-  DFR_FP(-0.002577304512381029),
-  DFR_FP(0.02931216019677041),
-  DFR_FP(0.2857857007138075),
-  DFR_FP(-0.08534415064432921),
-  DFR_FP(0.23448357178872936),
-  DFR_FP(0.21114287798974984),
-  DFR_FP(0.43205968661337824),
-  DFR_FP(-0.3850673667190948),
-  DFR_FP(0.2290151170763094),
-  DFR_FP(0.4274239286245599),
-  DFR_FP(0.4679261899246464),
-  DFR_FP(-0.4852936950346307),
-  DFR_FP(0.36364009024557575),
-  DFR_FP(0.4811950400663443),
-  DFR_FP(0.45721017961096355),
-  DFR_FP(-0.3512359877675021),
-  DFR_FP(0.47262881382295496),
-  DFR_FP(0.38993555572052063),
-  DFR_FP(0.3223738275430704)
-  };
-
-
-  DFR_FP W[] = {
-  DFR_FP(683.6791114807129),
+const DFR_FP W[] = {
+DFR_FP(683.6791114807129),
 DFR_FP(81.97559309005737),
 DFR_FP(-145.38898998498917),
 DFR_FP(52.123558044433594),
@@ -126,15 +115,32 @@ DFR_FP(42.979408740997314),
 DFR_FP(-42.264872789382935),
 DFR_FP(-337.18653297424316),
 DFR_FP(-17.758880615234375)
-  };
+};
 
-  // dfr parameters
-  constexpr int N = 50;
-  constexpr int LAST_NODE = N - 1;
-  DFR_FP gamma = 0.5;
-  DFR_FP eta = 0.4;
+// dfr parameters
+const DFR_FP dfr_gamma = 0.5;
+const DFR_FP dfr_eta = 0.4;
+const unsigned N = 50;
+const unsigned LAST_NODE = N - 1;
+const unsigned MAX_ADC_SIGNED = 0x7FF;
 
-  static DFR_FP reservoir[N] = {};
+// mackey glass parameters
+const DFR_FP mg_C = 2;
+const DFR_FP mg_b = 2.1;
+const DFR_FP mg_p = 10;
+const DFR_FP mg_a = 0.8;
+const DFR_FP mg_c = 0.2; 
+}
+
+component hls_stall_free_return DFR_FP dfr(hls_stable_argument short i_data, hls_stable_argument short q_data) {
+
+  // persistent reservoir
+  static DFR_FP reservoir[N] hls_init_on_reset;
+
+
+  // new reservoir to replace with old
+  // DFR_FP new_reservoir[N];
+
 
   // process sample through reservoir
 
@@ -143,26 +149,42 @@ DFR_FP(-17.758880615234375)
 
   // calculate energy
   // DFR_FP sample = ihc_sqrt(ihc_pow(i_data,DFR_FP(2)) + ihc_pow(q_data,DFR_FP(2)));
-  int MAX_ADC_SIGNED = 0x7FF;
   DFR_FP i_data_scaled = DFR_FP(i_data) / DFR_FP(MAX_ADC_SIGNED);
   DFR_FP q_data_scaled = DFR_FP(q_data) / DFR_FP(MAX_ADC_SIGNED);
   DFR_FP sample = ihc_sqrt(i_data_scaled * i_data_scaled + q_data_scaled * q_data_scaled);
   
   // loop through each masked input subsample
-  for(int node_idx = 0; node_idx < N; node_idx++){
+  #pragma unroll 5
+  for(unsigned node_idx = 0; node_idx < N; node_idx++){
 
     // calculate next node value based on current subsample
     DFR_FP masked_sample_i = MASK[node_idx] * sample;
-    DFR_FP mg_in = gamma * masked_sample_i + eta * reservoir[LAST_NODE];
-    DFR_FP mg_out = mackey_glass(mg_in);
+    // DFR_FP mg_in = gamma * masked_sample_i + eta * reservoir[LAST_NODE];
+    DFR_FP mg_in = dfr_gamma * masked_sample_i + dfr_eta * reservoir[LAST_NODE - node_idx];
+    // DFR_FP mg_out = mackey_glass(mg_in);
+
+    // Mackey Glass Equation
+    // (C * x) / (a + c * ihc_pow(b * x,p));
+    DFR_FP mg_power = ihc_pow(mg_b * mg_in,mg_p);
+    DFR_FP mg_denominator = mg_a + mg_c * mg_power;
+    DFR_FP mg_numerator = mg_C * mg_in;
+    DFR_FP mg_out = mg_numerator / mg_denominator;
 
     // update reservoir  
-    for(int i = LAST_NODE; i > 0; i--) reservoir[i] = reservoir[i - 1];
-    reservoir[0] = mg_out;
+    // for(unsigned i = LAST_NODE; i > 0; i--) reservoir[i] = reservoir[i - 1];
+    reservoir[LAST_NODE - node_idx] = mg_out;
+
+    // update first node value
+    // reservoir[0] = mg_out;
 
     // calculate output
     dfr_out += W[LAST_NODE - node_idx] * mg_out;
   }
+
+  // #pragma unroll
+  // for(unsigned node_idx = 0; node_idx < N; node_idx++){
+  //   reservoir[node_idx] = new_reservoir[node_idx];
+  // }
 
   // bool dfr_out_bool = (dfr_out >= 0.5);
 

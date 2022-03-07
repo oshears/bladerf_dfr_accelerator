@@ -32,11 +32,13 @@ int main() {
   printf("Initializing Reservoir...\n");
   for(unsigned int i = 0; i < NUM_INIT_SAMPLES; i++) ihc_hls_enqueue_noret(&dfr,u[i][0],u[i][1]);
   ihc_hls_component_run_all(dfr);
+  // for(unsigned int i = 0; i < 1; i++) dfr(u[i][0],u[i][1]);
 
   // reservoir test
   printf("Testing DFR...\n");
   for(unsigned int i = 0; i < NUM_TEST_SAMPLES; i++) ihc_hls_enqueue(&y_hat_test[i], &dfr,u[i+NUM_INIT_SAMPLES][0],u[i+NUM_INIT_SAMPLES][1]);
   ihc_hls_component_run_all(dfr);
+  // for(unsigned int i = 0; i < 1; i++) y_hat_test[i] = dfr(u[i+NUM_INIT_SAMPLES][0],u[i+NUM_INIT_SAMPLES][1]);
 
   // calculate accuracy
   float accuracy = 0;
