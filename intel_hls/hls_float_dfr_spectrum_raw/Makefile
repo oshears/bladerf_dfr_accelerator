@@ -47,7 +47,7 @@ test-x86-64: $(SOURCE_FILES)
 # Run a simulation with the C testbench and verilog component
 .PHONY: test-fpga
 ifeq ($(VERBOSE),1)
-  test-fpga: CXXFLAGS := $(CXXFLAGS) -v -ghdl
+  test-fpga: CXXFLAGS := $(CXXFLAGS) -v -ghdl=1
 endif
 # test-fpga: CXXFLAGS := $(CXXFLAGS) $(HLS_CXX_FLAGS) -march=$(DEVICE) -o test-fpga
 test-fpga: CXXFLAGS := $(CXXFLAGS) $(HLS_CXX_FLAGS) -march=$(DEVICE) -o test-fpga

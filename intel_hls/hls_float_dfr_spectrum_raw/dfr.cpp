@@ -154,7 +154,7 @@ component hls_stall_free_return DFR_FP dfr(hls_stable_argument short i_data, hls
   DFR_FP sample = ihc_sqrt(i_data_scaled * i_data_scaled + q_data_scaled * q_data_scaled);
   
   // loop through each masked input subsample
-  #pragma unroll 5
+  #pragma unroll 2
   for(unsigned node_idx = 0; node_idx < N; node_idx++){
 
     // calculate next node value based on current subsample
