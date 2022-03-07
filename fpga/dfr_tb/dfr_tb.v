@@ -9,7 +9,7 @@ module dfr_tb;
     // reg [12:0] dfr_input_addr = 13'h0000;
     reg [31:0] dfr_input_count = 32'h0000_0000;
     
-    wire [31:0] dfr_input = 32'h0000_0000;
+    wire [31:0] dfr_input;
 
     wire start;
     wire resetn;
