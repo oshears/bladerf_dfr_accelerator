@@ -41,35 +41,33 @@ if ![ string match "*-64 vsim*" [ vsim -version ] ] {
 
 # ----------------------------------------
 # Copy ROM/RAM files to simulation directory
-alias file_copy {
-  echo "\[exec\] file_copy"
-  file copy -force $QSYS_SIMDIR/submodules/dfr_flt_i_llvm_fpga_vpfp_pow_i26_i26_i260000d434_lnTables_lutmem.hex ./
-  file copy -force $QSYS_SIMDIR/submodules/dfr_flt_i_llvm_fpga_vpfp_pow_i26_i26_i260000d435_lnTables_lutmem.hex ./
-  file copy -force $QSYS_SIMDIR/submodules/dfr_flt_i_llvm_fpga_vpfp_pow_i26_i26_i260000d436_lnTables_lutmem.hex ./
-  file copy -force $QSYS_SIMDIR/submodules/dfr_flt_i_llvm_fpga_vpfp_pow_i26_i26_i260000d437_lnTables_lutmem.hex ./
-  file copy -force $QSYS_SIMDIR/submodules/dfr_flt_i_llvm_fpga_vpfp_pow_i26_i26_i260000d440_lnTables_lutmem.hex ./
-  file copy -force $QSYS_SIMDIR/submodules/dfr_flt_i_llvm_fpga_vpfp_pow_i26_i26_i260000d441_lnTables_lutmem.hex ./
-  file copy -force $QSYS_SIMDIR/submodules/dfr_flt_i_llvm_fpga_vpfp_pow_i26_i26_i260000d442_lnTables_lutmem.hex ./
-  file copy -force $QSYS_SIMDIR/submodules/dfr_flt_i_llvm_fpga_vpfp_pow_i26_i26_i260000d445_lnTables_lutmem.hex ./
-  file copy -force $QSYS_SIMDIR/submodules/dfr_flt_i_llvm_fpga_vpfp_pow_i26_i26_i260000d446_lnTables_lutmem.hex ./
-  file copy -force $QSYS_SIMDIR/submodules/dfr_flt_i_llvm_fpga_vpfp_pow_i26_i26_i260000848_expTables_lutmem.hex ./
-  file copy -force $QSYS_SIMDIR/submodules/dfr_flt_i_llvm_fpga_vpfp_pow_i26_i26_i260000852_expTables_lutmem.hex ./
-  file copy -force $QSYS_SIMDIR/submodules/dfr_flt_i_llvm_fpga_vpfp_pow_i26_i26_i260000855_expTables_lutmem.hex ./
-  file copy -force $QSYS_SIMDIR/submodules/dfr_flt_i_llvm_fpga_vpfp_pow_i26_i26_i260000858_expTables_lutmem.hex ./
-  file copy -force $QSYS_SIMDIR/submodules/dfr_flt_i_llvm_fpga_vpfp_pow_i26_i26_i260001d434_lnTables_lutmem.hex ./
-  file copy -force $QSYS_SIMDIR/submodules/dfr_flt_i_llvm_fpga_vpfp_pow_i26_i26_i260001d435_lnTables_lutmem.hex ./
-  file copy -force $QSYS_SIMDIR/submodules/dfr_flt_i_llvm_fpga_vpfp_pow_i26_i26_i260001d436_lnTables_lutmem.hex ./
-  file copy -force $QSYS_SIMDIR/submodules/dfr_flt_i_llvm_fpga_vpfp_pow_i26_i26_i260001d437_lnTables_lutmem.hex ./
-  file copy -force $QSYS_SIMDIR/submodules/dfr_flt_i_llvm_fpga_vpfp_pow_i26_i26_i260001d440_lnTables_lutmem.hex ./
-  file copy -force $QSYS_SIMDIR/submodules/dfr_flt_i_llvm_fpga_vpfp_pow_i26_i26_i260001d441_lnTables_lutmem.hex ./
-  file copy -force $QSYS_SIMDIR/submodules/dfr_flt_i_llvm_fpga_vpfp_pow_i26_i26_i260001d442_lnTables_lutmem.hex ./
-  file copy -force $QSYS_SIMDIR/submodules/dfr_flt_i_llvm_fpga_vpfp_pow_i26_i26_i260001d445_lnTables_lutmem.hex ./
-  file copy -force $QSYS_SIMDIR/submodules/dfr_flt_i_llvm_fpga_vpfp_pow_i26_i26_i260001d446_lnTables_lutmem.hex ./
-  file copy -force $QSYS_SIMDIR/submodules/dfr_flt_i_llvm_fpga_vpfp_pow_i26_i26_i260001848_expTables_lutmem.hex ./
-  file copy -force $QSYS_SIMDIR/submodules/dfr_flt_i_llvm_fpga_vpfp_pow_i26_i26_i260001852_expTables_lutmem.hex ./
-  file copy -force $QSYS_SIMDIR/submodules/dfr_flt_i_llvm_fpga_vpfp_pow_i26_i26_i260001855_expTables_lutmem.hex ./
-  file copy -force $QSYS_SIMDIR/submodules/dfr_flt_i_llvm_fpga_vpfp_pow_i26_i26_i260001858_expTables_lutmem.hex ./
-}
+#   echo "\[exec\] file_copy"
+file copy -force $QSYS_SIMDIR/submodules/dfr_flt_i_llvm_fpga_vpfp_pow_i26_i26_i260000d434_lnTables_lutmem.hex ./
+file copy -force $QSYS_SIMDIR/submodules/dfr_flt_i_llvm_fpga_vpfp_pow_i26_i26_i260000d435_lnTables_lutmem.hex ./
+file copy -force $QSYS_SIMDIR/submodules/dfr_flt_i_llvm_fpga_vpfp_pow_i26_i26_i260000d436_lnTables_lutmem.hex ./
+file copy -force $QSYS_SIMDIR/submodules/dfr_flt_i_llvm_fpga_vpfp_pow_i26_i26_i260000d437_lnTables_lutmem.hex ./
+file copy -force $QSYS_SIMDIR/submodules/dfr_flt_i_llvm_fpga_vpfp_pow_i26_i26_i260000d440_lnTables_lutmem.hex ./
+file copy -force $QSYS_SIMDIR/submodules/dfr_flt_i_llvm_fpga_vpfp_pow_i26_i26_i260000d441_lnTables_lutmem.hex ./
+file copy -force $QSYS_SIMDIR/submodules/dfr_flt_i_llvm_fpga_vpfp_pow_i26_i26_i260000d442_lnTables_lutmem.hex ./
+file copy -force $QSYS_SIMDIR/submodules/dfr_flt_i_llvm_fpga_vpfp_pow_i26_i26_i260000d445_lnTables_lutmem.hex ./
+file copy -force $QSYS_SIMDIR/submodules/dfr_flt_i_llvm_fpga_vpfp_pow_i26_i26_i260000d446_lnTables_lutmem.hex ./
+file copy -force $QSYS_SIMDIR/submodules/dfr_flt_i_llvm_fpga_vpfp_pow_i26_i26_i260000848_expTables_lutmem.hex ./
+file copy -force $QSYS_SIMDIR/submodules/dfr_flt_i_llvm_fpga_vpfp_pow_i26_i26_i260000852_expTables_lutmem.hex ./
+file copy -force $QSYS_SIMDIR/submodules/dfr_flt_i_llvm_fpga_vpfp_pow_i26_i26_i260000855_expTables_lutmem.hex ./
+file copy -force $QSYS_SIMDIR/submodules/dfr_flt_i_llvm_fpga_vpfp_pow_i26_i26_i260000858_expTables_lutmem.hex ./
+file copy -force $QSYS_SIMDIR/submodules/dfr_flt_i_llvm_fpga_vpfp_pow_i26_i26_i260001d434_lnTables_lutmem.hex ./
+file copy -force $QSYS_SIMDIR/submodules/dfr_flt_i_llvm_fpga_vpfp_pow_i26_i26_i260001d435_lnTables_lutmem.hex ./
+file copy -force $QSYS_SIMDIR/submodules/dfr_flt_i_llvm_fpga_vpfp_pow_i26_i26_i260001d436_lnTables_lutmem.hex ./
+file copy -force $QSYS_SIMDIR/submodules/dfr_flt_i_llvm_fpga_vpfp_pow_i26_i26_i260001d437_lnTables_lutmem.hex ./
+file copy -force $QSYS_SIMDIR/submodules/dfr_flt_i_llvm_fpga_vpfp_pow_i26_i26_i260001d440_lnTables_lutmem.hex ./
+file copy -force $QSYS_SIMDIR/submodules/dfr_flt_i_llvm_fpga_vpfp_pow_i26_i26_i260001d441_lnTables_lutmem.hex ./
+file copy -force $QSYS_SIMDIR/submodules/dfr_flt_i_llvm_fpga_vpfp_pow_i26_i26_i260001d442_lnTables_lutmem.hex ./
+file copy -force $QSYS_SIMDIR/submodules/dfr_flt_i_llvm_fpga_vpfp_pow_i26_i26_i260001d445_lnTables_lutmem.hex ./
+file copy -force $QSYS_SIMDIR/submodules/dfr_flt_i_llvm_fpga_vpfp_pow_i26_i26_i260001d446_lnTables_lutmem.hex ./
+file copy -force $QSYS_SIMDIR/submodules/dfr_flt_i_llvm_fpga_vpfp_pow_i26_i26_i260001848_expTables_lutmem.hex ./
+file copy -force $QSYS_SIMDIR/submodules/dfr_flt_i_llvm_fpga_vpfp_pow_i26_i26_i260001852_expTables_lutmem.hex ./
+file copy -force $QSYS_SIMDIR/submodules/dfr_flt_i_llvm_fpga_vpfp_pow_i26_i26_i260001855_expTables_lutmem.hex ./
+file copy -force $QSYS_SIMDIR/submodules/dfr_flt_i_llvm_fpga_vpfp_pow_i26_i26_i260001858_expTables_lutmem.hex ./
 
 # ----------------------------------------
 # Create compilation libraries

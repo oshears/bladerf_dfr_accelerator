@@ -1,13 +1,15 @@
-// half_adder_tb.v
-
 `timescale 1 ns/1 ns  // time-unit = 1 ns, precision = 10 ps
 
 module dfr_tb;
 
     reg reset = 1;
     reg clock = 0;
-    reg[15:0] i = 0, q = 0;
+    
+
+    // reg [12:0] dfr_input_addr = 13'h0000;
     reg [31:0] dfr_input_count = 32'h0000_0000;
+    
+    wire [31:0] dfr_input = 32'h0000_0000;
 
     wire start;
     wire resetn;
@@ -17,7 +19,6 @@ module dfr_tb;
     wire dfr_input_count_reset;
     wire dfr_input_count_inc;
     wire dfr_output_ram_wen;
-    wire resetn;
     wire dfr_fsm_done;
 
     dfr_fsm dfr_ip_fsm(
@@ -38,11 +39,17 @@ module dfr_tb;
 		.start(start),
 		.busy(busy),
 		.clock(clock),
-		.i_data(i),
-		.q_data(q),
+		.i_data(dfr_input[31:16]),
+		.q_data(dfr_input[15:0]),
 		.resetn(resetn),
 		.done(done),
 		.returndata(dfr_output)
+    );
+
+    dfr_rom_ip dfr_rom(
+        .clock(clock),
+        .address(dfr_input_count[12:0]),
+        .q(dfr_input)
     );
 
     always begin
@@ -56,18 +63,16 @@ module dfr_tb;
             @(posedge clock);
             reset = 0;
 
-            i = 1;
-            q = 2;
+            dfr_input_count = 0;
 
             @(posedge dfr_input_count_inc);
-            dfr_input_count = 32'h0000_0001;
-            i = 2;
-            q = 3;
+            dfr_input_count = 1;
+
+            @(posedge dfr_input_count_inc);
+            dfr_input_count = 2;
             
             @(posedge dfr_input_count_inc);
-            dfr_input_count = 32'hFFFF_FFFF;
-            i = 4;
-            q = 5;
+            dfr_input_count = 2;
 
             @(posedge dfr_fsm_done);
             $finish;
