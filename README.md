@@ -157,3 +157,28 @@ Handshakes -->
 - Optimize architecture for low power and low area
 - Add online learning via stochastic gradient descent
 - Implement a spiking neural network model
+
+
+## Low Precision Floating Point
+https://www.researchgate.net/publication/323429756_Handwritten_Digit_Classification_using_8-bit_Floating_Point_based_Convolutional_Neural_Networks
+
+------
+0000000011111101_1101110100000000
+
+0000
+00
+
+0 = 0
+01111110 = 126
+11101110100000000 = 122112
+(-1)**(E) * (1 + (M / (2**17))) * (2**(E - 127))
+(1 + (122112 / (2**17))) * (2**(126 - 127))
+0.9658203125
+----
+0001000100000010_0001100000000000
+
+000100
+0
+10000001 = 129
+00001100000000000 = 6144
+(1 + (6144 / (2**17))) * (2**(129 - 127))

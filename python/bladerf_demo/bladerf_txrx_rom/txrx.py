@@ -275,6 +275,22 @@ def receive(device, channel : int, freq : int, rate : int, gain : int,
                         # combinedNumStr = bin()
                         outfile.write(sampleBytes[3] + "" + sampleBytes[2] + "_" + sampleBytes[1] + "" + sampleBytes[0] + "\n")
 
+                        # floating point number
+                        result = 0
+                        result += int(buf[bytes_per_sample*i + 3]) << 24
+                        result += int(buf[bytes_per_sample*i + 2]) << 16
+                        result += int(buf[bytes_per_sample*i + 1]) << 8
+                        result += int(buf[bytes_per_sample*i + 0]) << 0
+
+                        # 0000000011111101_1101110100000000
+                        address = result >> 28
+                        sign = (result & 0x02000000) >> 25
+                        exponent = (result & 0x01FE0000) >> 17 
+                        mantissa = (result & 0x0001FFFF) 
+
+                        resultFloat = (-1)**(sign) * (1 + (mantissa / (2**17))) * (2**(exponent - 127))
+                        outfile.write(f"Address: {address}; Float: {resultFloat}\n")
+
     # Disable module
     print( "RX: Stop" )
     ch.enable = False

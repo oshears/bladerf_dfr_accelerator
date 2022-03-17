@@ -32,8 +32,10 @@ module dfr_tb;
         .dfr_resetn(resetn),
         .dfr_start(start),
         .dfr_output_ram_wen(dfr_output_ram_wen),
-        .dfr_fsm_done(dfr_fsm_done)
-    );
+        .dfr_fsm_done(dfr_fsm_done),
+        .dfr_fsm_waiting(),
+        .dfr_fsm_led()
+    );  
 
     dfr_internal dfr_ip(
 		.start(start),
@@ -67,12 +69,25 @@ module dfr_tb;
 
             @(posedge dfr_input_count_inc);
             dfr_input_count = 1;
+            $display("%b", dfr_output);
+            // (-1)**(sign) * (1 + (mantissa / (2**17))) * (2**(exponent - 127))
+            $display("Sign: %d", dfr_output[25]);
+            $display("Exponent: %d", dfr_output[24:17]);
+            $display("Mantissa: %d", dfr_output[16:0]);
 
             @(posedge dfr_input_count_inc);
             dfr_input_count = 2;
+            $display("%b", dfr_output);
+            $display("Sign: %d", dfr_output[25]);
+            $display("Exponent: %d", dfr_output[24:17]);
+            $display("Mantissa: %d", dfr_output[16:0]);
             
             @(posedge dfr_input_count_inc);
-            dfr_input_count = 2;
+            dfr_input_count = 3;
+            $display("%b", dfr_output);
+            $display("Sign: %d", dfr_output[25]);
+            $display("Exponent: %d", dfr_output[24:17]);
+            $display("Mantissa: %d", dfr_output[16:0]);
 
             @(posedge dfr_fsm_done);
             $finish;
