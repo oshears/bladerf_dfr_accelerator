@@ -22,7 +22,7 @@ options:
     run_options: prompt
     sizing_mode: fixed
     thread_safe_setters: ''
-    title: DFR Spectrum Sensing
+    title: Spectrum Energy
     window_size: (1000,1000)
   states:
     bus_sink: false
@@ -85,104 +85,94 @@ blocks:
     coordinate: [183, 12]
     rotation: 0
     state: enabled
-- name: blocks_file_source_0
-  id: blocks_file_source
+- name: analog_const_source_x_0
+  id: analog_const_source_x
   parameters:
     affinity: ''
     alias: ''
-    begin_tag: pmt.PMT_NIL
     comment: ''
-    file: /home/oshears/Documents/bladeRF/bladerf_dfr_accelerator/gnu_radio/custom/spectrum_data/i_data.bin
-    length: '0'
+    const: '0.705'
     maxoutbuf: '0'
     minoutbuf: '0'
-    offset: '0'
-    repeat: 'True'
     type: float
-    vlen: '1'
   states:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [66, 212]
+    coordinate: [920, 489]
     rotation: 0
     state: true
-- name: blocks_file_source_0_0
-  id: blocks_file_source
+- name: analog_noise_source_x_0
+  id: analog_noise_source_x
   parameters:
     affinity: ''
     alias: ''
-    begin_tag: pmt.PMT_NIL
+    amp: noise_level
     comment: ''
-    file: /home/oshears/Documents/bladeRF/bladerf_dfr_accelerator/gnu_radio/custom/spectrum_data/q_data.bin
-    length: '0'
     maxoutbuf: '0'
     minoutbuf: '0'
-    offset: '0'
+    noise_type: analog.GR_GAUSSIAN
+    seed: '0'
+    type: complex
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [333, 374]
+    rotation: 0
+    state: true
+- name: analog_random_source_x_0
+  id: analog_random_source_x
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    max: '8'
+    maxoutbuf: '0'
+    min: '0'
+    minoutbuf: '0'
+    num_samps: '1000'
     repeat: 'True'
-    type: float
-    vlen: '1'
+    type: byte
   states:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [78, 377]
+    coordinate: [84, 243]
     rotation: 0
     state: true
-- name: blocks_file_source_0_0_0
-  id: blocks_file_source
-  parameters:
-    affinity: ''
-    alias: ''
-    begin_tag: pmt.PMT_NIL
-    comment: ''
-    file: /home/oshears/Documents/bladeRF/bladerf_dfr_accelerator/gnu_radio/custom/spectrum_data/out_data.bin
-    length: '0'
-    maxoutbuf: '0'
-    minoutbuf: '0'
-    offset: '0'
-    repeat: 'True'
-    type: float
-    vlen: '1'
-  states:
-    bus_sink: false
-    bus_source: false
-    bus_structure: null
-    coordinate: [724, 556]
-    rotation: 0
-    state: true
-- name: blocks_float_to_complex_0
-  id: blocks_float_to_complex
+- name: blocks_add_xx_0
+  id: blocks_add_xx
   parameters:
     affinity: ''
     alias: ''
     comment: ''
     maxoutbuf: '0'
     minoutbuf: '0'
-    vlen: '1'
-  states:
-    bus_sink: false
-    bus_source: false
-    bus_structure: null
-    coordinate: [301, 310]
-    rotation: 0
-    state: true
-- name: blocks_multiply_const_vxx_0
-  id: blocks_multiply_const_vxx
-  parameters:
-    affinity: ''
-    alias: ''
-    comment: ''
-    const: 1 / (2 ** 11)
-    maxoutbuf: '0'
-    minoutbuf: '0'
+    num_inputs: '2'
     type: complex
     vlen: '1'
   states:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [392, 483]
+    coordinate: [573, 326]
+    rotation: 0
+    state: true
+- name: digital_constellation_encoder_bc_1
+  id: digital_constellation_encoder_bc
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    constellation: qpsk_constellation
+    maxoutbuf: '0'
+    minoutbuf: '0'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [301, 255]
     rotation: 0
     state: true
 - name: epy_block_0
@@ -240,9 +230,41 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [566, 661]
+    coordinate: [738, 467]
     rotation: 0
-    state: enabled
+    state: disabled
+- name: epy_block_1
+  id: epy_block
+  parameters:
+    _source_code: "\"\"\"\nEmbedded Python Blocks:\n\nEach time this file is saved,\
+      \ GRC will instantiate the first class it finds\nto get ports and parameters\
+      \ of your block. The arguments to __init__  will\nbe the parameters. All of\
+      \ them are required to have default values!\n\"\"\"\n\nimport numpy as np\n\
+      from gnuradio import gr\n\n\nclass blk(gr.sync_block):  # other base classes\
+      \ are basic_block, decim_block, interp_block\n    \"\"\"Spectrum Energy - Record\
+      \ Spectrum Energy\"\"\"\n\n    def __init__(self):  # only default arguments\
+      \ here\n        \"\"\"arguments to this function show up as parameters in GRC\"\
+      \"\"\n        gr.sync_block.__init__(\n            self,\n            name='Spectrum\
+      \ Energy Block',   # will show up in GRC\n            in_sig=[np.complex64],\n\
+      \            out_sig=[np.float32]\n        )\n        \n\n        \n\n    def\
+      \ work(self, input_items, output_items):\n        \"\"\"example: multiply with\
+      \ constant\"\"\"\n\n        i_data_norm = np.real(input_items[0])\n        q_data_norm\
+      \ = np.imag(input_items[0])\n        x = np.sqrt(np.power(i_data_norm,2) + np.power(q_data_norm,2))\n\
+      \        output_items[0][:] = x\n\n        return len(output_items[0])\n\n"
+    affinity: ''
+    alias: ''
+    comment: ''
+    maxoutbuf: '0'
+    minoutbuf: '0'
+  states:
+    _io_cache: ('Spectrum Energy Block', 'blk', [], [('0', 'complex', 1)], [('0',
+      'float', 1)], 'Spectrum Energy - Record Spectrum Energy', [])
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [727, 408]
+    rotation: 0
+    state: true
 - name: epy_block_1_0
   id: epy_block
   parameters:
@@ -272,7 +294,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [703, 473]
+    coordinate: [732, 330]
     rotation: 0
     state: true
 - name: qtgui_const_sink_x_0
@@ -327,7 +349,7 @@ blocks:
     marker8: '0'
     marker9: '0'
     name: '""'
-    nconnections: '1'
+    nconnections: '2'
     size: '10'
     style1: '0'
     style10: '0'
@@ -356,19 +378,19 @@ blocks:
     width7: '1'
     width8: '1'
     width9: '1'
-    xmax: '2'
-    xmin: '-2'
-    ymax: '2'
-    ymin: '-2'
+    xmax: '5'
+    xmin: '-5'
+    ymax: '5'
+    ymin: '-5'
   states:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [711, 336]
+    coordinate: [915, 222]
     rotation: 0
-    state: true
-- name: qtgui_time_sink_x_0
-  id: qtgui_time_sink_x
+    state: enabled
+- name: qtgui_const_sink_x_0_0
+  id: qtgui_const_sink_x
   parameters:
     affinity: ''
     alias: ''
@@ -382,67 +404,62 @@ blocks:
     alpha7: '1.0'
     alpha8: '1.0'
     alpha9: '1.0'
-    autoscale: 'True'
+    autoscale: 'False'
     axislabels: 'True'
-    color1: blue
-    color10: dark blue
-    color2: red
-    color3: green
-    color4: black
-    color5: cyan
-    color6: magenta
-    color7: yellow
-    color8: dark red
-    color9: dark green
+    color1: '"blue"'
+    color10: '"red"'
+    color2: '"red"'
+    color3: '"red"'
+    color4: '"red"'
+    color5: '"red"'
+    color6: '"red"'
+    color7: '"red"'
+    color8: '"red"'
+    color9: '"red"'
     comment: ''
-    ctrlpanel: 'False'
-    entags: 'True'
     grid: 'False'
     gui_hint: ''
-    label1: Signal 1
-    label10: Signal 10
-    label2: Signal 2
-    label3: Signal 3
-    label4: Signal 4
-    label5: Signal 5
-    label6: Signal 6
-    label7: Signal 7
-    label8: Signal 8
-    label9: Signal 9
+    label1: ''
+    label10: ''
+    label2: ''
+    label3: ''
+    label4: ''
+    label5: ''
+    label6: ''
+    label7: ''
+    label8: ''
+    label9: ''
     legend: 'True'
-    marker1: '-1'
-    marker10: '-1'
-    marker2: '-1'
-    marker3: '-1'
-    marker4: '-1'
-    marker5: '-1'
-    marker6: '-1'
-    marker7: '-1'
-    marker8: '-1'
-    marker9: '-1'
+    marker1: '0'
+    marker10: '0'
+    marker2: '0'
+    marker3: '0'
+    marker4: '0'
+    marker5: '0'
+    marker6: '0'
+    marker7: '0'
+    marker8: '0'
+    marker9: '0'
     name: '""'
     nconnections: '1'
-    size: '10'
-    srate: samp_rate
-    stemplot: 'False'
-    style1: '1'
-    style10: '1'
-    style2: '1'
-    style3: '1'
-    style4: '1'
-    style5: '1'
-    style6: '1'
-    style7: '1'
-    style8: '1'
-    style9: '1'
+    size: '1024'
+    style1: '0'
+    style10: '0'
+    style2: '0'
+    style3: '0'
+    style4: '0'
+    style5: '0'
+    style6: '0'
+    style7: '0'
+    style8: '0'
+    style9: '0'
     tr_chan: '0'
-    tr_delay: '0'
     tr_level: '0.0'
     tr_mode: qtgui.TRIG_MODE_FREE
     tr_slope: qtgui.TRIG_SLOPE_POS
     tr_tag: '""'
-    type: float
-    update_time: '10'
+    type: complex
+    update_time: '0.10'
     width1: '1'
     width10: '1'
     width2: '1'
@@ -453,18 +470,18 @@ blocks:
     width7: '1'
     width8: '1'
     width9: '1'
-    ylabel: Amplitude
-    ymax: '1'
-    ymin: '-1'
-    yunit: '""'
+    xmax: '2'
+    xmin: '-2'
+    ymax: '2'
+    ymin: '-2'
   states:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [544, 216]
+    coordinate: [822, 137]
     rotation: 0
     state: disabled
-- name: qtgui_time_sink_x_0_0
+- name: qtgui_time_sink_x_0
   id: qtgui_time_sink_x
   parameters:
     affinity: ''
@@ -496,9 +513,9 @@ blocks:
     entags: 'True'
     grid: 'False'
     gui_hint: ''
-    label1: Input
+    label1: Clean Signal
     label10: Signal 10
-    label2: Spectrum Occupancy
+    label2: Noisy Signal
     label3: Threshold
     label4: Signal 4
     label5: Signal 5
@@ -517,8 +534,8 @@ blocks:
     marker7: '-1'
     marker8: '-1'
     marker9: '-1'
-    name: Spectrum Energy
-    nconnections: '1'
+    name: '""'
+    nconnections: '3'
     size: '10'
     srate: samp_rate
     stemplot: 'False'
@@ -551,124 +568,30 @@ blocks:
     width8: '1'
     width9: '1'
     ylabel: Spectrum Energy
-    ymax: '1'
+    ymax: '6'
     ymin: '0'
     yunit: '""'
   states:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [974, 442]
-    rotation: 0
-    state: true
-- name: qtgui_time_sink_x_0_0_0
-  id: qtgui_time_sink_x
-  parameters:
-    affinity: ''
-    alias: ''
-    alpha1: '1.0'
-    alpha10: '1.0'
-    alpha2: '1.0'
-    alpha3: '1.0'
-    alpha4: '1.0'
-    alpha5: '1.0'
-    alpha6: '1.0'
-    alpha7: '1.0'
-    alpha8: '1.0'
-    alpha9: '1.0'
-    autoscale: 'False'
-    axislabels: 'True'
-    color1: blue
-    color10: dark blue
-    color2: red
-    color3: green
-    color4: black
-    color5: cyan
-    color6: magenta
-    color7: yellow
-    color8: dark red
-    color9: dark green
-    comment: ''
-    ctrlpanel: 'False'
-    entags: 'True'
-    grid: 'False'
-    gui_hint: ''
-    label1: Actual
-    label10: Signal 10
-    label2: Predicted
-    label3: Threshold
-    label4: Signal 4
-    label5: Signal 5
-    label6: Signal 6
-    label7: Signal 7
-    label8: Signal 8
-    label9: Signal 9
-    legend: 'True'
-    marker1: '0'
-    marker10: '-1'
-    marker2: '2'
-    marker3: '-1'
-    marker4: '-1'
-    marker5: '-1'
-    marker6: '-1'
-    marker7: '-1'
-    marker8: '-1'
-    marker9: '-1'
-    name: Spectrum Occupancy Prediction
-    nconnections: '2'
-    size: '10'
-    srate: samp_rate
-    stemplot: 'False'
-    style1: '0'
-    style10: '1'
-    style2: '0'
-    style3: '2'
-    style4: '1'
-    style5: '1'
-    style6: '1'
-    style7: '1'
-    style8: '1'
-    style9: '1'
-    tr_chan: '0'
-    tr_delay: '0'
-    tr_level: '0.0'
-    tr_mode: qtgui.TRIG_MODE_FREE
-    tr_slope: qtgui.TRIG_SLOPE_POS
-    tr_tag: '""'
-    type: float
-    update_time: '3'
-    width1: '3'
-    width10: '1'
-    width2: '3'
-    width3: '3'
-    width4: '1'
-    width5: '1'
-    width6: '1'
-    width7: '1'
-    width8: '1'
-    width9: '1'
-    ylabel: Spectrum Occupancy
-    ymax: '1'
-    ymin: '0'
-    yunit: '""'
-  states:
-    bus_sink: false
-    bus_source: false
-    bus_structure: null
-    coordinate: [976, 685]
+    coordinate: [1143, 321]
     rotation: 0
     state: true
 
 connections:
-- [blocks_file_source_0, '0', blocks_float_to_complex_0, '0']
-- [blocks_file_source_0_0, '0', blocks_float_to_complex_0, '1']
-- [blocks_file_source_0_0_0, '0', qtgui_time_sink_x_0_0_0, '0']
-- [blocks_float_to_complex_0, '0', blocks_multiply_const_vxx_0, '0']
-- [blocks_multiply_const_vxx_0, '0', epy_block_0, '0']
-- [blocks_multiply_const_vxx_0, '0', epy_block_1_0, '0']
-- [blocks_multiply_const_vxx_0, '0', qtgui_const_sink_x_0, '0']
-- [epy_block_0, '0', qtgui_time_sink_x_0_0_0, '1']
-- [epy_block_1_0, '0', qtgui_time_sink_x_0_0, '0']
+- [analog_const_source_x_0, '0', qtgui_time_sink_x_0, '2']
+- [analog_noise_source_x_0, '0', blocks_add_xx_0, '1']
+- [analog_random_source_x_0, '0', digital_constellation_encoder_bc_1, '0']
+- [blocks_add_xx_0, '0', epy_block_0, '0']
+- [blocks_add_xx_0, '0', epy_block_1, '0']
+- [blocks_add_xx_0, '0', qtgui_const_sink_x_0, '1']
+- [digital_constellation_encoder_bc_1, '0', blocks_add_xx_0, '0']
+- [digital_constellation_encoder_bc_1, '0', epy_block_1_0, '0']
+- [digital_constellation_encoder_bc_1, '0', qtgui_const_sink_x_0, '0']
+- [digital_constellation_encoder_bc_1, '0', qtgui_const_sink_x_0_0, '0']
+- [epy_block_1, '0', qtgui_time_sink_x_0, '1']
+- [epy_block_1_0, '0', qtgui_time_sink_x_0, '0']
 
 metadata:
   file_format: 1
