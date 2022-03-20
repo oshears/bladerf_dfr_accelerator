@@ -283,7 +283,7 @@ def receive(device, channel : int, freq : int, rate : int, gain : int,
                         result += int(buf[bytes_per_sample*i + 0]) << 0
 
                         # 0000000011111101_1101110100000000
-                        address = result >> 28
+                        address = result >> 26
                         sign = (result & 0x02000000) >> 25
                         exponent = (result & 0x01FE0000) >> 17 
                         mantissa = (result & 0x0001FFFF) 
