@@ -95,7 +95,7 @@ class dfr(gr.top_block, Qt.QWidget):
         for c in range(0, 1):
             self.top_grid_layout.setColumnStretch(c, 1)
         self.qtgui_time_sink_x_0_0_1_0 = qtgui.time_sink_f(
-            10, #size
+            100, #size
             samp_rate, #samp_rate
             'Total Prediction Accuracy', #name
             2, #number of inputs
@@ -200,7 +200,7 @@ class dfr(gr.top_block, Qt.QWidget):
             self.top_grid_layout.setColumnStretch(c, 1)
         self.qtgui_const_sink_x_0 = qtgui.const_sink_c(
             100, #size
-            "", #name
+            'Constellation', #name
             1, #number of inputs
             None # parent
         )
@@ -243,7 +243,7 @@ class dfr(gr.top_block, Qt.QWidget):
             self.top_grid_layout.setRowStretch(r, 1)
         for c in range(0, 1):
             self.top_grid_layout.setColumnStretch(c, 1)
-        self.epy_block_1_2 = epy_block_1_2.blk(num_samples=1)
+        self.epy_block_1_2 = epy_block_1_2.blk(num_samples=10)
         self.epy_block_1 = epy_block_1.blk(num_samples=0)
         self.epy_block_0 = epy_block_0.blk(Virtual_Nodes=100, Input_Gain=0.8, Feedback_Scale=0.25, Random_Seed=0, Mask_Min=-0.5, Mask_Max=0.5, Mask_Type='Uniform')
         self.blocks_file_source_0_0_1_0_0_0 = blocks.file_source(gr.sizeof_gr_complex*1, '/home/oshears/Documents/bladeRF/bladerf_dfr_accelerator/python/spectrum_data/mimo/iq_data_ant_4.bin', True, 0, 0)

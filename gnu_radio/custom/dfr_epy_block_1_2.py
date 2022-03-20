@@ -26,6 +26,7 @@ class blk(gr.sync_block):  # other base classes are basic_block, decim_block, in
         self.num_samples = num_samples
         self.processedSamples = 0
         self.accuracy = 0
+        self.values = []
         self.sum = 0
 
     def work(self, input_items, output_items):
@@ -44,11 +45,25 @@ class blk(gr.sync_block):  # other base classes are basic_block, decim_block, in
         accuracyValues = []
         for i in range(len(input_items[0])):
             self.processedSamples += 1
-            if input_items[0][i] == input_items[1][i]:
-                self.sum += 1
-            self.accuracy = self.sum / self.processedSamples
-            accuracyValues.append(self.accuracy)
-        # print(accuracyValues)
+            
+            if self.num_samples <= 0:
+                
+                if input_items[0][i] == input_items[1][i]:
+                    self.sum += 1
+
+                self.accuracy = self.sum / self.processedSamples
+                accuracyValues.append(self.accuracy)
+
+            else:
+                # remove oldest value
+                if self.processedSamples > self.num_samples:
+                    self.values = self.values[1:self.num_samples]
+                # insert newest prediction
+                self.values.append(1 if input_items[0][i] == input_items[1][i] else 0)
+                # calculate accuracy 
+                accuracyValues.append(np.array(self.values).sum() / len(self.values))
+                    
+
         output_items[0][:] = np.array(accuracyValues)
 
         return len(output_items[0])

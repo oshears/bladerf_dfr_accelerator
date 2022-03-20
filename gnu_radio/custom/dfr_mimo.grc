@@ -51,7 +51,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [392, 21]
+    coordinate: [350, 23]
     rotation: 0
     state: true
 - name: samp_rate
@@ -63,7 +63,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [183, 12]
+    coordinate: [205, 19]
     rotation: 0
     state: enabled
 - name: analog_noise_source_x_0
@@ -72,7 +72,7 @@ blocks:
     affinity: ''
     alias: ''
     amp: noise_level
-    comment: ''
+    comment: Additive White Gaussian Noise
     maxoutbuf: '0'
     minoutbuf: '0'
     noise_type: analog.GR_GAUSSIAN
@@ -82,7 +82,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [356, 1076]
+    coordinate: [354, 180]
     rotation: 0
     state: true
 - name: blocks_add_xx_0
@@ -100,7 +100,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [631, 913]
+    coordinate: [749, 801]
     rotation: 0
     state: true
 - name: blocks_add_xx_0_0
@@ -118,7 +118,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [637, 775]
+    coordinate: [749, 694]
     rotation: 0
     state: true
 - name: blocks_add_xx_0_0_0
@@ -136,7 +136,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [658, 669]
+    coordinate: [759, 595]
     rotation: 0
     state: true
 - name: blocks_add_xx_0_0_0_0
@@ -154,7 +154,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [612, 586]
+    coordinate: [759, 512]
     rotation: 0
     state: true
 - name: blocks_add_xx_0_0_0_0_0
@@ -172,7 +172,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [616, 496]
+    coordinate: [763, 416]
     rotation: 0
     state: true
 - name: blocks_add_xx_0_0_0_0_0_0
@@ -180,7 +180,7 @@ blocks:
   parameters:
     affinity: ''
     alias: ''
-    comment: ''
+    comment: Add AWGN
     maxoutbuf: '0'
     minoutbuf: '0'
     num_inputs: '2'
@@ -190,7 +190,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [611, 396]
+    coordinate: [753, 319]
     rotation: 0
     state: true
 - name: blocks_file_source_0
@@ -199,7 +199,7 @@ blocks:
     affinity: ''
     alias: ''
     begin_tag: pmt.PMT_NIL
-    comment: ''
+    comment: Get Complex IQ Data from Antenna 2
     file: /home/oshears/Documents/bladeRF/bladerf_dfr_accelerator/python/spectrum_data/mimo/iq_data_ant_1.bin
     length: '0'
     maxoutbuf: '0'
@@ -212,7 +212,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [95, 432]
+    coordinate: [337, 383]
     rotation: 0
     state: true
 - name: blocks_file_source_0_0
@@ -221,7 +221,7 @@ blocks:
     affinity: ''
     alias: ''
     begin_tag: pmt.PMT_NIL
-    comment: ''
+    comment: Get Complex IQ Data from Antenna 3
     file: /home/oshears/Documents/bladeRF/bladerf_dfr_accelerator/python/spectrum_data/mimo/iq_data_ant_2.bin
     length: '0'
     maxoutbuf: '0'
@@ -234,7 +234,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [98, 569]
+    coordinate: [124, 480]
     rotation: 0
     state: true
 - name: blocks_file_source_0_0_0
@@ -243,7 +243,7 @@ blocks:
     affinity: ''
     alias: ''
     begin_tag: pmt.PMT_NIL
-    comment: ''
+    comment: Get Expected Data from File
     file: /home/oshears/Documents/bladeRF/bladerf_dfr_accelerator/python/spectrum_data/mimo/output.bin
     length: '0'
     maxoutbuf: '0'
@@ -256,7 +256,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [1115, 507]
+    coordinate: [955, 206]
     rotation: 0
     state: enabled
 - name: blocks_file_source_0_0_1
@@ -265,7 +265,7 @@ blocks:
     affinity: ''
     alias: ''
     begin_tag: pmt.PMT_NIL
-    comment: ''
+    comment: Get Complex IQ Data from Antenna 1
     file: /home/oshears/Documents/bladeRF/bladerf_dfr_accelerator/python/spectrum_data/mimo/iq_data_ant_0.bin
     length: '0'
     maxoutbuf: '0'
@@ -278,7 +278,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [98, 266]
+    coordinate: [95, 290]
     rotation: 0
     state: true
 - name: blocks_file_source_0_0_1_0
@@ -287,7 +287,7 @@ blocks:
     affinity: ''
     alias: ''
     begin_tag: pmt.PMT_NIL
-    comment: ''
+    comment: Get Complex IQ Data from Antenna 6
     file: /home/oshears/Documents/bladeRF/bladerf_dfr_accelerator/python/spectrum_data/mimo/iq_data_ant_5.bin
     length: '0'
     maxoutbuf: '0'
@@ -300,7 +300,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [86, 995]
+    coordinate: [428, 766]
     rotation: 0
     state: true
 - name: blocks_file_source_0_0_1_0_0
@@ -309,7 +309,7 @@ blocks:
     affinity: ''
     alias: ''
     begin_tag: pmt.PMT_NIL
-    comment: ''
+    comment: Get Complex IQ Data from Antenna 4
     file: /home/oshears/Documents/bladeRF/bladerf_dfr_accelerator/python/spectrum_data/mimo/iq_data_ant_3.bin
     length: '0'
     maxoutbuf: '0'
@@ -322,7 +322,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [134, 719]
+    coordinate: [339, 566]
     rotation: 0
     state: true
 - name: blocks_file_source_0_0_1_0_0_0
@@ -331,7 +331,7 @@ blocks:
     affinity: ''
     alias: ''
     begin_tag: pmt.PMT_NIL
-    comment: ''
+    comment: Get Complex IQ Data from Antenna 5
     file: /home/oshears/Documents/bladeRF/bladerf_dfr_accelerator/python/spectrum_data/mimo/iq_data_ant_4.bin
     length: '0'
     maxoutbuf: '0'
@@ -344,7 +344,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [88, 860]
+    coordinate: [124, 671]
     rotation: 0
     state: true
 - name: epy_block_0
@@ -366,7 +366,7 @@ blocks:
       \ DFR Inference\"\"\"\n\n    def __init__(self, Virtual_Nodes=100,Input_Gain=0.8,Feedback_Scale=0.25,Random_Seed=0,Mask_Min=-0.5,Mask_Max=0.5,Mask_Type=\"\
       Uniform\"):  # only default arguments here\n        \"\"\"arguments to this\
       \ function show up as parameters in GRC\"\"\"\n        gr.sync_block.__init__(\n\
-      \            self,\n            name='DFR Block',   # will show up in GRC\n\
+      \            self,\n            name='MIMO DFR Block',   # will show up in GRC\n\
       \            in_sig=[np.complex64,np.complex64,np.complex64,np.complex64,np.complex64,np.complex64],\n\
       \            out_sig=[np.float32]\n        )\n        # if an attribute with\
       \ the same name as a parameter is found,\n        # a callback is registered\
@@ -429,19 +429,20 @@ blocks:
       \ 10\n\n        return (a * x) / (b + c * np.power( (d * x), p) )\n"
     affinity: ''
     alias: ''
-    comment: ''
+    comment: Delayed Feedback Reservoir with 6 Antenna Interfaces
     maxoutbuf: '0'
     minoutbuf: '0'
   states:
-    _io_cache: ('DFR Block', 'blk', [('Virtual_Nodes', '100'), ('Input_Gain', '0.8'),
-      ('Feedback_Scale', '0.25'), ('Random_Seed', '0'), ('Mask_Min', '-0.5'), ('Mask_Max',
-      '0.5'), ('Mask_Type', "'Uniform'")], [('0', 'complex', 1), ('1', 'complex',
-      1), ('2', 'complex', 1), ('3', 'complex', 1), ('4', 'complex', 1), ('5', 'complex',
-      1)], [('0', 'float', 1)], 'MIMO DFR Block - Perform DFR Inference', ['Virtual_Nodes'])
+    _io_cache: ('MIMO DFR Block', 'blk', [('Virtual_Nodes', '100'), ('Input_Gain',
+      '0.8'), ('Feedback_Scale', '0.25'), ('Random_Seed', '0'), ('Mask_Min', '-0.5'),
+      ('Mask_Max', '0.5'), ('Mask_Type', "'Uniform'")], [('0', 'complex', 1), ('1',
+      'complex', 1), ('2', 'complex', 1), ('3', 'complex', 1), ('4', 'complex', 1),
+      ('5', 'complex', 1)], [('0', 'float', 1)], 'MIMO DFR Block - Perform DFR Inference',
+      ['Virtual_Nodes'])
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [850, 593]
+    coordinate: [1002, 490]
     rotation: 0
     state: enabled
 - name: epy_block_1
@@ -477,7 +478,7 @@ blocks:
       \n        return len(output_items[0])\n"
     affinity: ''
     alias: ''
-    comment: ''
+    comment: Total accuracy
     maxoutbuf: '0'
     minoutbuf: '0'
     num_samples: '0'
@@ -488,41 +489,9 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [1180, 750]
+    coordinate: [1385, 485]
     rotation: 0
     state: enabled
-- name: epy_block_1_0
-  id: epy_block
-  parameters:
-    _source_code: "\"\"\"\nEmbedded Python Blocks:\n\nEach time this file is saved,\
-      \ GRC will instantiate the first class it finds\nto get ports and parameters\
-      \ of your block. The arguments to __init__  will\nbe the parameters. All of\
-      \ them are required to have default values!\n\"\"\"\n\nimport numpy as np\n\
-      from gnuradio import gr\n\n\nclass blk(gr.sync_block):  # other base classes\
-      \ are basic_block, decim_block, interp_block\n    \"\"\"Spectrum Energy - Record\
-      \ Spectrum Energy\"\"\"\n\n    def __init__(self):  # only default arguments\
-      \ here\n        \"\"\"arguments to this function show up as parameters in GRC\"\
-      \"\"\n        gr.sync_block.__init__(\n            self,\n            name='Spectrum\
-      \ Energy Block',   # will show up in GRC\n            in_sig=[np.complex64],\n\
-      \            out_sig=[np.float32]\n        )\n        \n\n        \n\n    def\
-      \ work(self, input_items, output_items):\n        \"\"\"example: multiply with\
-      \ constant\"\"\"\n\n        i_data_norm = np.real(input_items[0])\n        q_data_norm\
-      \ = np.imag(input_items[0])\n        x = np.sqrt(np.power(i_data_norm,2) + np.power(q_data_norm,2))\n\
-      \        output_items[0][:] = x\n\n        return len(output_items[0])\n\n"
-    affinity: ''
-    alias: ''
-    comment: ''
-    maxoutbuf: '0'
-    minoutbuf: '0'
-  states:
-    _io_cache: ('Spectrum Energy Block', 'blk', [], [('0', 'complex', 1)], [('0',
-      'float', 1)], 'Spectrum Energy - Record Spectrum Energy', [])
-    bus_sink: false
-    bus_source: false
-    bus_structure: null
-    coordinate: [1165, 437]
-    rotation: 0
-    state: disabled
 - name: epy_block_1_2
   id: epy_block
   parameters:
@@ -540,26 +509,32 @@ blocks:
       \        )\n        # if an attribute with the same name as a parameter is found,\n\
       \        # a callback is registered (properties work, too).\n        self.num_samples\
       \ = num_samples\n        self.processedSamples = 0\n        self.accuracy =\
-      \ 0\n        self.sum = 0\n\n    def work(self, input_items, output_items):\n\
-      \        \"\"\"example: multiply with constant\"\"\"\n        # output_items[0][:]\
-      \ = input_items[0] * self.example_param\n\n        # previousSum = self.accuracy\
-      \ * self.processedSamples\n        # currentSum = (input_items[0] == input_items[1]).sum()\n\
-      \        # currentNumSamples = len(input_items[0])\n        # train_accuracy\
-      \ =  (currentSum + previousSum) / (currentNumSamples + self.processedSamples)\n\
-      \        # # auc = roc_auc_score(y_train, y_hat)\n        # output_items[0][:]\
-      \ = train_accuracy\n\n        # self.processedSamples += len(output_items[0])\n\
-      \n        accuracyValues = []\n        for i in range(len(input_items[0])):\n\
-      \            self.processedSamples += 1\n            if input_items[0][i] ==\
-      \ input_items[1][i]:\n                self.sum += 1\n            self.accuracy\
-      \ = self.sum / self.processedSamples\n            accuracyValues.append(self.accuracy)\n\
-      \        # print(accuracyValues)\n        output_items[0][:] = np.array(accuracyValues)\n\
-      \n        return len(output_items[0])\n"
+      \ 0\n        self.values = []\n        self.sum = 0\n\n    def work(self, input_items,\
+      \ output_items):\n        \"\"\"example: multiply with constant\"\"\"\n    \
+      \    # output_items[0][:] = input_items[0] * self.example_param\n\n        #\
+      \ previousSum = self.accuracy * self.processedSamples\n        # currentSum\
+      \ = (input_items[0] == input_items[1]).sum()\n        # currentNumSamples =\
+      \ len(input_items[0])\n        # train_accuracy =  (currentSum + previousSum)\
+      \ / (currentNumSamples + self.processedSamples)\n        # # auc = roc_auc_score(y_train,\
+      \ y_hat)\n        # output_items[0][:] = train_accuracy\n\n        # self.processedSamples\
+      \ += len(output_items[0])\n\n        accuracyValues = []\n        for i in range(len(input_items[0])):\n\
+      \            self.processedSamples += 1\n            \n            if self.num_samples\
+      \ <= 0:\n                \n                if input_items[0][i] == input_items[1][i]:\n\
+      \                    self.sum += 1\n\n                self.accuracy = self.sum\
+      \ / self.processedSamples\n                accuracyValues.append(self.accuracy)\n\
+      \n            else:\n                # remove oldest value\n               \
+      \ if self.processedSamples > self.num_samples:\n                    self.values\
+      \ = self.values[1:self.num_samples]\n                # insert newest prediction\n\
+      \                self.values.append(1 if input_items[0][i] == input_items[1][i]\
+      \ else 0)\n                # calculate accuracy \n                accuracyValues.append(np.array(self.values).sum()\
+      \ / len(self.values))\n                    \n\n        output_items[0][:] =\
+      \ np.array(accuracyValues)\n\n        return len(output_items[0])\n"
     affinity: ''
     alias: ''
-    comment: ''
+    comment: 10 sample accuracy
     maxoutbuf: '0'
     minoutbuf: '0'
-    num_samples: '1'
+    num_samples: '10'
   states:
     _io_cache: ('Binary Accuracy Block', 'blk', [('num_samples', '1.0')], [('0', 'float',
       1), ('1', 'float', 1)], [('0', 'float', 1)], 'Binary Accuracy Block - Keep a
@@ -567,7 +542,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [1125, 985]
+    coordinate: [1381, 632]
     rotation: 0
     state: enabled
 - name: qtgui_const_sink_x_0
@@ -597,7 +572,7 @@ blocks:
     color7: '"red"'
     color8: '"red"'
     color9: '"red"'
-    comment: ''
+    comment: Show constellation for one antenna source
     grid: 'False'
     gui_hint: 1,0
     label1: ''
@@ -621,7 +596,7 @@ blocks:
     marker7: '0'
     marker8: '0'
     marker9: '0'
-    name: '""'
+    name: Input Data Constellation
     nconnections: '1'
     size: '100'
     style1: '0'
@@ -659,106 +634,9 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [1176, 308]
+    coordinate: [958, 41]
     rotation: 0
     state: enabled
-- name: qtgui_time_sink_x_0_0
-  id: qtgui_time_sink_x
-  parameters:
-    affinity: ''
-    alias: ''
-    alpha1: '1.0'
-    alpha10: '1.0'
-    alpha2: '1.0'
-    alpha3: '1.0'
-    alpha4: '1.0'
-    alpha5: '1.0'
-    alpha6: '1.0'
-    alpha7: '1.0'
-    alpha8: '1.0'
-    alpha9: '1.0'
-    autoscale: 'False'
-    axislabels: 'True'
-    color1: blue
-    color10: dark blue
-    color2: red
-    color3: green
-    color4: black
-    color5: cyan
-    color6: magenta
-    color7: yellow
-    color8: dark red
-    color9: dark green
-    comment: ''
-    ctrlpanel: 'False'
-    entags: 'True'
-    grid: 'False'
-    gui_hint: 2,0
-    label1: Input
-    label10: Signal 10
-    label2: Spectrum Occupancy
-    label3: Threshold
-    label4: Signal 4
-    label5: Signal 5
-    label6: Signal 6
-    label7: Signal 7
-    label8: Signal 8
-    label9: Signal 9
-    legend: 'True'
-    marker1: '0'
-    marker10: '-1'
-    marker2: '2'
-    marker3: '-1'
-    marker4: '-1'
-    marker5: '-1'
-    marker6: '-1'
-    marker7: '-1'
-    marker8: '-1'
-    marker9: '-1'
-    name: Spectrum Energy
-    nconnections: '1'
-    size: '10'
-    srate: samp_rate
-    stemplot: 'False'
-    style1: '0'
-    style10: '1'
-    style2: '0'
-    style3: '2'
-    style4: '1'
-    style5: '1'
-    style6: '1'
-    style7: '1'
-    style8: '1'
-    style9: '1'
-    tr_chan: '0'
-    tr_delay: '0'
-    tr_level: '0.0'
-    tr_mode: qtgui.TRIG_MODE_FREE
-    tr_slope: qtgui.TRIG_SLOPE_POS
-    tr_tag: '""'
-    type: float
-    update_time: '1'
-    width1: '3'
-    width10: '1'
-    width2: '3'
-    width3: '3'
-    width4: '1'
-    width5: '1'
-    width6: '1'
-    width7: '1'
-    width8: '1'
-    width9: '1'
-    ylabel: Spectrum Energy
-    ymax: '5'
-    ymin: '0'
-    yunit: '""'
-  states:
-    bus_sink: false
-    bus_source: false
-    bus_structure: null
-    coordinate: [1437, 393]
-    rotation: 0
-    state: disabled
 - name: qtgui_time_sink_x_0_0_0
   id: qtgui_time_sink_x
   parameters:
@@ -786,7 +664,7 @@ blocks:
     color7: yellow
     color8: dark red
     color9: dark green
-    comment: ''
+    comment: Plot Spectrum Occupancy Predictions vs Expected Output
     ctrlpanel: 'False'
     entags: 'True'
     grid: 'False'
@@ -853,7 +731,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [1438, 653]
+    coordinate: [1589, 63]
     rotation: 0
     state: enabled
 - name: qtgui_time_sink_x_0_0_1_0
@@ -883,7 +761,7 @@ blocks:
     color7: yellow
     color8: dark red
     color9: dark green
-    comment: ''
+    comment: Plot total accuracy and 10 sample accuracy
     ctrlpanel: 'False'
     entags: 'True'
     grid: 'False'
@@ -911,7 +789,7 @@ blocks:
     marker9: '-1'
     name: Total Prediction Accuracy
     nconnections: '2'
-    size: '10'
+    size: '100'
     srate: samp_rate
     stemplot: 'False'
     style1: '1'
@@ -950,7 +828,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [1429, 933]
+    coordinate: [1623, 540]
     rotation: 0
     state: enabled
 
@@ -981,7 +859,6 @@ connections:
 - [epy_block_0, '0', epy_block_1_2, '1']
 - [epy_block_0, '0', qtgui_time_sink_x_0_0_0, '1']
 - [epy_block_1, '0', qtgui_time_sink_x_0_0_1_0, '0']
-- [epy_block_1_0, '0', qtgui_time_sink_x_0_0, '0']
 - [epy_block_1_2, '0', qtgui_time_sink_x_0_0_1_0, '1']
 
 metadata:
