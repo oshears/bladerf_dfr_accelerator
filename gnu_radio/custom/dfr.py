@@ -27,7 +27,6 @@ from gnuradio.filter import firdes
 import sip
 from gnuradio import blocks
 import pmt
-from gnuradio import digital
 from gnuradio import gr
 from gnuradio.fft import window
 import sys
@@ -35,8 +34,6 @@ import signal
 from argparse import ArgumentParser
 from gnuradio.eng_arg import eng_float, intx
 from gnuradio import eng_notation
-from gnuradio.qtgui import Range, RangeWidget
-from PyQt5 import QtCore
 import dfr_epy_block_0 as epy_block_0  # embedded python block
 import dfr_epy_block_1 as epy_block_1  # embedded python block
 
@@ -80,10 +77,8 @@ class dfr(gr.top_block, Qt.QWidget):
         ##################################################
         # Variables
         ##################################################
+        self.samples = samples = 6102
         self.samp_rate = samp_rate = 1
-        self.qpsk_constellation = qpsk_constellation = digital.constellation_calcdist([-1-1j, -1+1j, 1+1j, 1-1j, 0,0,0,0], [0, 1, 3, 2, 4,5,6,7],
-        4, 1, digital.constellation.AMPLITUDE_NORMALIZATION).base()
-        self.noise_level = noise_level = 0
 
         ##################################################
         # Blocks
@@ -102,7 +97,7 @@ class dfr(gr.top_block, Qt.QWidget):
 
         self.qtgui_time_sink_x_0_0_1.enable_tags(True)
         self.qtgui_time_sink_x_0_0_1.set_trigger_mode(qtgui.TRIG_MODE_FREE, qtgui.TRIG_SLOPE_POS, 0.0, 0, 0, "")
-        self.qtgui_time_sink_x_0_0_1.enable_autoscale(False)
+        self.qtgui_time_sink_x_0_0_1.enable_autoscale(True)
         self.qtgui_time_sink_x_0_0_1.enable_grid(False)
         self.qtgui_time_sink_x_0_0_1.enable_axis_labels(True)
         self.qtgui_time_sink_x_0_0_1.enable_control_panel(False)
@@ -137,7 +132,7 @@ class dfr(gr.top_block, Qt.QWidget):
         self._qtgui_time_sink_x_0_0_1_win = sip.wrapinstance(self.qtgui_time_sink_x_0_0_1.qwidget(), Qt.QWidget)
         self.top_layout.addWidget(self._qtgui_time_sink_x_0_0_1_win)
         self.qtgui_time_sink_x_0_0_0 = qtgui.time_sink_f(
-            20, #size
+            10, #size
             samp_rate, #samp_rate
             'Spectrum Occupancy Prediction', #name
             2, #number of inputs
@@ -184,19 +179,18 @@ class dfr(gr.top_block, Qt.QWidget):
 
         self._qtgui_time_sink_x_0_0_0_win = sip.wrapinstance(self.qtgui_time_sink_x_0_0_0.qwidget(), Qt.QWidget)
         self.top_layout.addWidget(self._qtgui_time_sink_x_0_0_0_win)
-        self._noise_level_range = Range(0, 5, 0.01, 0, 200)
-        self._noise_level_win = RangeWidget(self._noise_level_range, self.set_noise_level, "Noise Level", "counter_slider", float, QtCore.Qt.Horizontal)
-        self.top_layout.addWidget(self._noise_level_win)
         self.epy_block_1 = epy_block_1.blk(num_samples=1.0)
         self.epy_block_0 = epy_block_0.blk(Virtual_Nodes=50, Input_Gain=0.5, Feedback_Scale=0.4, Random_Seed=0, Mask_Min=-0.5, Mask_Max=0.5, Mask_Type='Uniform')
         self.blocks_multiply_const_vxx_0 = blocks.multiply_const_cc(1 / (2 ** 11))
         self.blocks_float_to_complex_0 = blocks.float_to_complex(1)
-        self.blocks_file_source_0_0_0 = blocks.file_source(gr.sizeof_float*1, '/home/oshears/Documents/bladeRF/bladerf_dfr_accelerator/gnu_radio/custom/spectrum_data/out_data.bin', True, 0, 0)
+        self.blocks_file_source_0_0_0 = blocks.file_source(gr.sizeof_float*1, '/home/oshears/Documents/bladeRF/bladerf_dfr_accelerator/gnu_radio/custom/spectrum_data/out_data.bin', True, 0, samples)
         self.blocks_file_source_0_0_0.set_begin_tag(pmt.PMT_NIL)
-        self.blocks_file_source_0_0 = blocks.file_source(gr.sizeof_float*1, '/home/oshears/Documents/bladeRF/bladerf_dfr_accelerator/gnu_radio/custom/spectrum_data/q_data.bin', True, 0, 0)
+        self.blocks_file_source_0_0 = blocks.file_source(gr.sizeof_float*1, '/home/oshears/Documents/bladeRF/bladerf_dfr_accelerator/gnu_radio/custom/spectrum_data/q_data.bin', True, 0, samples)
         self.blocks_file_source_0_0.set_begin_tag(pmt.PMT_NIL)
-        self.blocks_file_source_0 = blocks.file_source(gr.sizeof_float*1, '/home/oshears/Documents/bladeRF/bladerf_dfr_accelerator/gnu_radio/custom/spectrum_data/i_data.bin', True, 0, 0)
+        self.blocks_file_source_0 = blocks.file_source(gr.sizeof_float*1, '/home/oshears/Documents/bladeRF/bladerf_dfr_accelerator/gnu_radio/custom/spectrum_data/i_data.bin', True, 0, samples)
         self.blocks_file_source_0.set_begin_tag(pmt.PMT_NIL)
+        self.blocks_file_sink_1 = blocks.file_sink(gr.sizeof_float*1, '/home/oshears/Documents/bladeRF/bladerf_dfr_accelerator/gnu_radio/custom/junk.bin', False)
+        self.blocks_file_sink_1.set_unbuffered(False)
 
 
         ##################################################
@@ -208,6 +202,7 @@ class dfr(gr.top_block, Qt.QWidget):
         self.connect((self.blocks_file_source_0_0_0, 0), (self.qtgui_time_sink_x_0_0_0, 0))
         self.connect((self.blocks_float_to_complex_0, 0), (self.blocks_multiply_const_vxx_0, 0))
         self.connect((self.blocks_multiply_const_vxx_0, 0), (self.epy_block_0, 0))
+        self.connect((self.epy_block_0, 0), (self.blocks_file_sink_1, 0))
         self.connect((self.epy_block_0, 0), (self.epy_block_1, 1))
         self.connect((self.epy_block_0, 0), (self.qtgui_time_sink_x_0_0_0, 1))
         self.connect((self.epy_block_1, 0), (self.qtgui_time_sink_x_0_0_1, 0))
@@ -221,6 +216,12 @@ class dfr(gr.top_block, Qt.QWidget):
 
         event.accept()
 
+    def get_samples(self):
+        return self.samples
+
+    def set_samples(self, samples):
+        self.samples = samples
+
     def get_samp_rate(self):
         return self.samp_rate
 
@@ -228,18 +229,6 @@ class dfr(gr.top_block, Qt.QWidget):
         self.samp_rate = samp_rate
         self.qtgui_time_sink_x_0_0_0.set_samp_rate(self.samp_rate)
         self.qtgui_time_sink_x_0_0_1.set_samp_rate(self.samp_rate)
-
-    def get_qpsk_constellation(self):
-        return self.qpsk_constellation
-
-    def set_qpsk_constellation(self, qpsk_constellation):
-        self.qpsk_constellation = qpsk_constellation
-
-    def get_noise_level(self):
-        return self.noise_level
-
-    def set_noise_level(self, noise_level):
-        self.noise_level = noise_level
 
 
 

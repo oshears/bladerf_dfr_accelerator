@@ -23,6 +23,7 @@ class blk(gr.sync_block):  # other base classes are basic_block, decim_block, in
         )
         # if an attribute with the same name as a parameter is found,
         # a callback is registered (properties work, too).
+        print("Configuring DFR")
         self.Virtual_Nodes = Virtual_Nodes
         self.seed = Random_Seed
         self.rng = np.random.default_rng(Random_Seed)
@@ -94,6 +95,7 @@ class blk(gr.sync_block):  # other base classes are basic_block, decim_block, in
 
         # ADC_MAX_SIGNED = 2**11
 
+
         NUM_SAMPLES = len(input_items[0])
 
 
@@ -110,6 +112,8 @@ class blk(gr.sync_block):  # other base classes are basic_block, decim_block, in
         for i in range(NUM_SAMPLES):
             masked_samples[i] = self.mask * x[i]
 
+        
+
         reservoir_history = np.zeros((NUM_SAMPLES,self.N))
         for i in range(NUM_SAMPLES):
             for j in range(self.N):
@@ -120,6 +124,7 @@ class blk(gr.sync_block):  # other base classes are basic_block, decim_block, in
 
             reservoir_history[i] = self.reservoir
 
+
         # y = reservoir_history.dot(self.W)
         y = reservoir_history.dot(self.W)
         y_bin = y.copy()
@@ -127,6 +132,9 @@ class blk(gr.sync_block):  # other base classes are basic_block, decim_block, in
         y_bin[y_bin < 0.5] = 0
 
         output_items[0][:] = y_bin
+        # output_items[1][:] = y
+
+        # print(y)
 
         return len(output_items[0])
 

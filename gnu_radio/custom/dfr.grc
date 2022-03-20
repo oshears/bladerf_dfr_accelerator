@@ -33,46 +33,6 @@ options:
     state: enabled
 
 blocks:
-- name: noise_level
-  id: variable_qtgui_range
-  parameters:
-    comment: ''
-    gui_hint: ''
-    label: Noise Level
-    min_len: '200'
-    orient: QtCore.Qt.Horizontal
-    rangeType: float
-    start: '0'
-    step: '0.01'
-    stop: '5'
-    value: '0'
-    widget: counter_slider
-  states:
-    bus_sink: false
-    bus_source: false
-    bus_structure: null
-    coordinate: [566, 38]
-    rotation: 0
-    state: true
-- name: qpsk_constellation
-  id: variable_constellation
-  parameters:
-    comment: ''
-    const_points: '[-1-1j, -1+1j, 1+1j, 1-1j, 0,0,0,0]'
-    dims: '1'
-    normalization: digital.constellation.AMPLITUDE_NORMALIZATION
-    precision: '8'
-    rot_sym: '4'
-    soft_dec_lut: None
-    sym_map: '[0, 1, 3, 2, 4,5,6,7]'
-    type: calcdist
-  states:
-    bus_sink: false
-    bus_source: false
-    bus_structure: null
-    coordinate: [303, 39]
-    rotation: 0
-    state: true
 - name: samp_rate
   id: variable
   parameters:
@@ -85,14 +45,26 @@ blocks:
     coordinate: [183, 12]
     rotation: 0
     state: enabled
-- name: blocks_file_sink_0
+- name: samples
+  id: variable
+  parameters:
+    comment: ''
+    value: '6102'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [176, 110]
+    rotation: 0
+    state: enabled
+- name: blocks_file_sink_1
   id: blocks_file_sink
   parameters:
     affinity: ''
     alias: ''
     append: 'False'
     comment: ''
-    file: /home/oshears/Documents/bladeRF/bladerf_dfr_accelerator/gnu_radio/custom/dfr_out.bin
+    file: /home/oshears/Documents/bladeRF/bladerf_dfr_accelerator/gnu_radio/custom/junk.bin
     type: float
     unbuffered: 'False'
     vlen: '1'
@@ -100,7 +72,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [632, 948]
+    coordinate: [574, 648]
     rotation: 0
     state: true
 - name: blocks_file_source_0
@@ -111,7 +83,7 @@ blocks:
     begin_tag: pmt.PMT_NIL
     comment: ''
     file: /home/oshears/Documents/bladeRF/bladerf_dfr_accelerator/gnu_radio/custom/spectrum_data/i_data.bin
-    length: '0'
+    length: samples
     maxoutbuf: '0'
     minoutbuf: '0'
     offset: '0'
@@ -122,7 +94,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [66, 212]
+    coordinate: [82, 222]
     rotation: 0
     state: true
 - name: blocks_file_source_0_0
@@ -133,7 +105,7 @@ blocks:
     begin_tag: pmt.PMT_NIL
     comment: ''
     file: /home/oshears/Documents/bladeRF/bladerf_dfr_accelerator/gnu_radio/custom/spectrum_data/q_data.bin
-    length: '0'
+    length: samples
     maxoutbuf: '0'
     minoutbuf: '0'
     offset: '0'
@@ -155,7 +127,7 @@ blocks:
     begin_tag: pmt.PMT_NIL
     comment: ''
     file: /home/oshears/Documents/bladeRF/bladerf_dfr_accelerator/gnu_radio/custom/spectrum_data/out_data.bin
-    length: '0'
+    length: samples
     maxoutbuf: '0'
     minoutbuf: '0'
     offset: '0'
@@ -166,9 +138,9 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [724, 556]
+    coordinate: [734, 534]
     rotation: 0
-    state: true
+    state: enabled
 - name: blocks_float_to_complex_0
   id: blocks_float_to_complex
   parameters:
@@ -202,7 +174,7 @@ blocks:
     bus_structure: null
     coordinate: [392, 483]
     rotation: 0
-    state: true
+    state: enabled
 - name: epy_block_0
   id: epy_block
   parameters:
@@ -223,11 +195,12 @@ blocks:
       Uniform\"):  # only default arguments here\n        \"\"\"arguments to this\
       \ function show up as parameters in GRC\"\"\"\n        gr.sync_block.__init__(\n\
       \            self,\n            name='DFR Block',   # will show up in GRC\n\
-      \            in_sig=[np.complex64],\n            out_sig=[np.float32,np.float32]\n\
-      \        )\n        # if an attribute with the same name as a parameter is found,\n\
-      \        # a callback is registered (properties work, too).\n        self.Virtual_Nodes\
-      \ = Virtual_Nodes\n        self.seed = Random_Seed\n        self.rng = np.random.default_rng(Random_Seed)\n\
-      \        self.N = Virtual_Nodes\n        self.gamma = Input_Gain\n        self.eta\
+      \            in_sig=[np.complex64],\n            out_sig=[np.float32]\n    \
+      \    )\n        # if an attribute with the same name as a parameter is found,\n\
+      \        # a callback is registered (properties work, too).\n        print(\"\
+      Configuring DFR\")\n        self.Virtual_Nodes = Virtual_Nodes\n        self.seed\
+      \ = Random_Seed\n        self.rng = np.random.default_rng(Random_Seed)\n   \
+      \     self.N = Virtual_Nodes\n        self.gamma = Input_Gain\n        self.eta\
       \ = Feedback_Scale\n        self.LAST_NODE = self.N - 1\n        self.reg =\
       \ 1e-8\n        self.reservoir = np.zeros(self.N)\n        self.mask = self.rng.uniform(Mask_Min,Mask_Max,self.N)\n\
       \n        self.W = np.array([-589.4317283630371,\n                    -38.58226776123047,\n\
@@ -258,24 +231,24 @@ blocks:
       \n        \n\n    def work(self, input_items, output_items):\n        \"\"\"\
       example: multiply with constant\"\"\"\n        # output_items[0][:] = input_items[0]\
       \ * self.multiply_const\n        # print(input_items[0])\n\n        # ADC_MAX_SIGNED\
-      \ = 2**11\n\n        NUM_SAMPLES = len(input_items[0])\n\n\n        i_data =\
-      \ np.real(input_items[0])\n        q_data = np.imag(input_items[0])\n\n    \
-      \    x = np.sqrt(np.power(i_data,2) + np.power(q_data,2))\n        # y = ss_data[:,2]\n\
+      \ = 2**11\n\n\n        NUM_SAMPLES = len(input_items[0])\n\n\n        i_data\
+      \ = np.real(input_items[0])\n        q_data = np.imag(input_items[0])\n\n  \
+      \      x = np.sqrt(np.power(i_data,2) + np.power(q_data,2))\n        # y = ss_data[:,2]\n\
       \n        output_items[0][:] = x\n\n        # mask generation\n        masked_samples\
       \ = np.empty((NUM_SAMPLES,self.N))\n        for i in range(NUM_SAMPLES):\n \
-      \           masked_samples[i] = self.mask * x[i]\n\n        reservoir_history\
+      \           masked_samples[i] = self.mask * x[i]\n\n        \n\n        reservoir_history\
       \ = np.zeros((NUM_SAMPLES,self.N))\n        for i in range(NUM_SAMPLES):\n \
       \           for j in range(self.N):\n\n                g_i = self.mg(self.gamma\
       \ * masked_samples[i][j] + self.eta * self.reservoir[self.LAST_NODE])\n    \
       \            self.reservoir[1:self.N] = self.reservoir[0:self.LAST_NODE]\n \
       \               self.reservoir[0] = g_i\n\n            reservoir_history[i]\
-      \ = self.reservoir\n\n        # y = reservoir_history.dot(self.W)\n        y\
-      \ = reservoir_history.dot(self.W)\n        y_bin = y.copy()\n        y_bin[y_bin\
+      \ = self.reservoir\n\n\n        # y = reservoir_history.dot(self.W)\n      \
+      \  y = reservoir_history.dot(self.W)\n        y_bin = y.copy()\n        y_bin[y_bin\
       \ >= 0.5] = 1\n        y_bin[y_bin < 0.5] = 0\n\n        output_items[0][:]\
-      \ = y_bin\n        output_items[1][:] = y\n\n        return len(output_items[0])\n\
-      \n    def mg(self,x):\n        a = 2\n        b = 0.8\n        c = 0.2\n   \
-      \     d = 2.1\n        p = 10\n\n        return (a * x) / (b + c * np.power(\
-      \ (d * x), p) )\n"
+      \ = y_bin\n        # output_items[1][:] = y\n\n        # print(y)\n\n      \
+      \  return len(output_items[0])\n\n    def mg(self,x):\n        a = 2\n     \
+      \   b = 0.8\n        c = 0.2\n        d = 2.1\n        p = 10\n\n        return\
+      \ (a * x) / (b + c * np.power( (d * x), p) )\n"
     affinity: ''
     alias: ''
     comment: ''
@@ -285,11 +258,11 @@ blocks:
     _io_cache: ('DFR Block', 'blk', [('Virtual_Nodes', '50'), ('Input_Gain', '0.5'),
       ('Feedback_Scale', '0.4'), ('Random_Seed', '0'), ('Mask_Min', '-0.5'), ('Mask_Max',
       '0.5'), ('Mask_Type', "'Uniform'")], [('0', 'complex', 1)], [('0', 'float',
-      1), ('1', 'float', 1)], 'DFR Block - Perform DFR Inference', ['Virtual_Nodes'])
+      1)], 'DFR Block - Perform DFR Inference', ['Virtual_Nodes'])
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [404, 696]
+    coordinate: [406, 737]
     rotation: 0
     state: enabled
 - name: epy_block_1
@@ -309,14 +282,20 @@ blocks:
       \        )\n        # if an attribute with the same name as a parameter is found,\n\
       \        # a callback is registered (properties work, too).\n        self.num_samples\
       \ = num_samples\n        self.processedSamples = 0\n        self.accuracy =\
-      \ 0\n\n    def work(self, input_items, output_items):\n        \"\"\"example:\
-      \ multiply with constant\"\"\"\n        # output_items[0][:] = input_items[0]\
-      \ * self.example_param\n\n        previousSum = self.accuracy * self.processedSamples\n\
-      \        currentSum = (input_items[0] == input_items[1]).sum()\n        currentNumSamples\
-      \ = len(input_items[0])\n        train_accuracy =  (currentSum + previousSum)\
-      \ / (currentNumSamples + self.processedSamples)\n        # auc = roc_auc_score(y_train,\
-      \ y_hat)\n        output_items[0][:] = train_accuracy\n\n        self.processedSamples\
-      \ += len(output_items[0])\n\n        return len(output_items[0])\n"
+      \ 0\n        self.sum = 0\n\n    def work(self, input_items, output_items):\n\
+      \        \"\"\"example: multiply with constant\"\"\"\n        # output_items[0][:]\
+      \ = input_items[0] * self.example_param\n\n        # previousSum = self.accuracy\
+      \ * self.processedSamples\n        # currentSum = (input_items[0] == input_items[1]).sum()\n\
+      \        # currentNumSamples = len(input_items[0])\n        # train_accuracy\
+      \ =  (currentSum + previousSum) / (currentNumSamples + self.processedSamples)\n\
+      \        # # auc = roc_auc_score(y_train, y_hat)\n        # output_items[0][:]\
+      \ = train_accuracy\n\n        # self.processedSamples += len(output_items[0])\n\
+      \n        accuracyValues = []\n        for i in range(len(input_items[0])):\n\
+      \            self.processedSamples += 1\n            if input_items[0][i] ==\
+      \ input_items[1][i]:\n                self.sum += 1\n            self.accuracy\
+      \ = self.sum / self.processedSamples\n            accuracyValues.append(self.accuracy)\n\
+      \        # print(accuracyValues)\n        output_items[0][:] = np.array(accuracyValues)\n\
+      \n        return len(output_items[0])\n"
     affinity: ''
     alias: ''
     comment: ''
@@ -330,9 +309,9 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [787, 835]
+    coordinate: [696, 858]
     rotation: 0
-    state: true
+    state: enabled
 - name: epy_block_1_0
   id: epy_block
   parameters:
@@ -706,7 +685,7 @@ blocks:
     marker9: '-1'
     name: Spectrum Occupancy Prediction
     nconnections: '2'
-    size: '20'
+    size: '10'
     srate: samp_rate
     stemplot: 'False'
     style1: '0'
@@ -747,7 +726,7 @@ blocks:
     bus_structure: null
     coordinate: [976, 683]
     rotation: 0
-    state: true
+    state: enabled
 - name: qtgui_time_sink_x_0_0_1
   id: qtgui_time_sink_x
   parameters:
@@ -763,7 +742,7 @@ blocks:
     alpha7: '1.0'
     alpha8: '1.0'
     alpha9: '1.0'
-    autoscale: 'False'
+    autoscale: 'True'
     axislabels: 'True'
     color1: blue
     color10: dark blue
@@ -842,9 +821,9 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [1019, 812]
+    coordinate: [956, 812]
     rotation: 0
-    state: true
+    state: enabled
 
 connections:
 - [blocks_file_source_0, '0', blocks_float_to_complex_0, '0']
@@ -855,9 +834,9 @@ connections:
 - [blocks_multiply_const_vxx_0, '0', epy_block_0, '0']
 - [blocks_multiply_const_vxx_0, '0', epy_block_1_0, '0']
 - [blocks_multiply_const_vxx_0, '0', qtgui_const_sink_x_0, '0']
+- [epy_block_0, '0', blocks_file_sink_1, '0']
 - [epy_block_0, '0', epy_block_1, '1']
 - [epy_block_0, '0', qtgui_time_sink_x_0_0_0, '1']
-- [epy_block_0, '1', blocks_file_sink_0, '0']
 - [epy_block_1, '0', qtgui_time_sink_x_0_0_1, '0']
 - [epy_block_1_0, '0', qtgui_time_sink_x_0_0, '0']
 
