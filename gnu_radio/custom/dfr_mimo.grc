@@ -58,7 +58,7 @@ blocks:
   id: variable
   parameters:
     comment: ''
-    value: '1000'
+    value: '1'
   states:
     bus_sink: false
     bus_source: false
@@ -66,18 +66,133 @@ blocks:
     coordinate: [183, 12]
     rotation: 0
     state: enabled
-- name: samples
-  id: variable
+- name: analog_noise_source_x_0
+  id: analog_noise_source_x
   parameters:
+    affinity: ''
+    alias: ''
+    amp: noise_level
     comment: ''
-    value: '6102'
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    noise_type: analog.GR_GAUSSIAN
+    seed: '0'
+    type: complex
   states:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [176, 110]
+    coordinate: [356, 1076]
     rotation: 0
-    state: enabled
+    state: true
+- name: blocks_add_xx_0
+  id: blocks_add_xx
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    num_inputs: '2'
+    type: complex
+    vlen: '1'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [631, 913]
+    rotation: 0
+    state: true
+- name: blocks_add_xx_0_0
+  id: blocks_add_xx
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    num_inputs: '2'
+    type: complex
+    vlen: '1'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [637, 775]
+    rotation: 0
+    state: true
+- name: blocks_add_xx_0_0_0
+  id: blocks_add_xx
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    num_inputs: '2'
+    type: complex
+    vlen: '1'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [658, 669]
+    rotation: 0
+    state: true
+- name: blocks_add_xx_0_0_0_0
+  id: blocks_add_xx
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    num_inputs: '2'
+    type: complex
+    vlen: '1'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [612, 586]
+    rotation: 0
+    state: true
+- name: blocks_add_xx_0_0_0_0_0
+  id: blocks_add_xx
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    num_inputs: '2'
+    type: complex
+    vlen: '1'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [616, 496]
+    rotation: 0
+    state: true
+- name: blocks_add_xx_0_0_0_0_0_0
+  id: blocks_add_xx
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    num_inputs: '2'
+    type: complex
+    vlen: '1'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [611, 396]
+    rotation: 0
+    state: true
 - name: blocks_file_source_0
   id: blocks_file_source
   parameters:
@@ -130,7 +245,7 @@ blocks:
     begin_tag: pmt.PMT_NIL
     comment: ''
     file: /home/oshears/Documents/bladeRF/bladerf_dfr_accelerator/python/spectrum_data/mimo/output.bin
-    length: samples
+    length: '0'
     maxoutbuf: '0'
     minoutbuf: '0'
     offset: '0'
@@ -141,7 +256,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [734, 534]
+    coordinate: [1115, 507]
     rotation: 0
     state: enabled
 - name: blocks_file_source_0_0_1
@@ -163,7 +278,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [253, 344]
+    coordinate: [98, 266]
     rotation: 0
     state: true
 - name: blocks_file_source_0_0_1_0
@@ -185,7 +300,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [207, 994]
+    coordinate: [86, 995]
     rotation: 0
     state: true
 - name: blocks_file_source_0_0_1_0_0
@@ -326,7 +441,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [429, 602]
+    coordinate: [850, 593]
     rotation: 0
     state: enabled
 - name: epy_block_1
@@ -373,7 +488,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [717, 780]
+    coordinate: [1180, 750]
     rotation: 0
     state: enabled
 - name: epy_block_1_0
@@ -405,7 +520,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [702, 467]
+    coordinate: [1165, 437]
     rotation: 0
     state: disabled
 - name: epy_block_1_2
@@ -444,7 +559,7 @@ blocks:
     comment: ''
     maxoutbuf: '0'
     minoutbuf: '0'
-    num_samples: '10'
+    num_samples: '1'
   states:
     _io_cache: ('Binary Accuracy Block', 'blk', [('num_samples', '1.0')], [('0', 'float',
       1), ('1', 'float', 1)], [('0', 'float', 1)], 'Binary Accuracy Block - Keep a
@@ -452,7 +567,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [662, 1015]
+    coordinate: [1125, 985]
     rotation: 0
     state: enabled
 - name: qtgui_const_sink_x_0
@@ -544,9 +659,9 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [713, 338]
+    coordinate: [1176, 308]
     rotation: 0
-    state: disabled
+    state: enabled
 - name: qtgui_time_sink_x_0_0
   id: qtgui_time_sink_x
   parameters:
@@ -641,7 +756,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [974, 423]
+    coordinate: [1437, 393]
     rotation: 0
     state: disabled
 - name: qtgui_time_sink_x_0_0_0
@@ -738,7 +853,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [975, 683]
+    coordinate: [1438, 653]
     rotation: 0
     state: enabled
 - name: qtgui_time_sink_x_0_0_1_0
@@ -796,7 +911,7 @@ blocks:
     marker9: '-1'
     name: Total Prediction Accuracy
     nconnections: '2'
-    size: '100'
+    size: '10'
     srate: samp_rate
     stemplot: 'False'
     style1: '1'
@@ -835,20 +950,33 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [964, 964]
+    coordinate: [1429, 933]
     rotation: 0
     state: enabled
 
 connections:
-- [blocks_file_source_0, '0', epy_block_0, '1']
-- [blocks_file_source_0_0, '0', epy_block_0, '2']
+- [analog_noise_source_x_0, '0', blocks_add_xx_0, '1']
+- [analog_noise_source_x_0, '0', blocks_add_xx_0_0, '1']
+- [analog_noise_source_x_0, '0', blocks_add_xx_0_0_0, '1']
+- [analog_noise_source_x_0, '0', blocks_add_xx_0_0_0_0, '1']
+- [analog_noise_source_x_0, '0', blocks_add_xx_0_0_0_0_0, '1']
+- [analog_noise_source_x_0, '0', blocks_add_xx_0_0_0_0_0_0, '1']
+- [blocks_add_xx_0, '0', epy_block_0, '5']
+- [blocks_add_xx_0_0, '0', epy_block_0, '4']
+- [blocks_add_xx_0_0_0, '0', epy_block_0, '3']
+- [blocks_add_xx_0_0_0_0, '0', epy_block_0, '2']
+- [blocks_add_xx_0_0_0_0_0, '0', epy_block_0, '1']
+- [blocks_add_xx_0_0_0_0_0_0, '0', epy_block_0, '0']
+- [blocks_add_xx_0_0_0_0_0_0, '0', qtgui_const_sink_x_0, '0']
+- [blocks_file_source_0, '0', blocks_add_xx_0_0_0_0_0, '0']
+- [blocks_file_source_0_0, '0', blocks_add_xx_0_0_0_0, '0']
 - [blocks_file_source_0_0_0, '0', epy_block_1, '0']
 - [blocks_file_source_0_0_0, '0', epy_block_1_2, '0']
 - [blocks_file_source_0_0_0, '0', qtgui_time_sink_x_0_0_0, '0']
-- [blocks_file_source_0_0_1, '0', epy_block_0, '0']
-- [blocks_file_source_0_0_1_0, '0', epy_block_0, '5']
-- [blocks_file_source_0_0_1_0_0, '0', epy_block_0, '3']
-- [blocks_file_source_0_0_1_0_0_0, '0', epy_block_0, '4']
+- [blocks_file_source_0_0_1, '0', blocks_add_xx_0_0_0_0_0_0, '0']
+- [blocks_file_source_0_0_1_0, '0', blocks_add_xx_0, '0']
+- [blocks_file_source_0_0_1_0_0, '0', blocks_add_xx_0_0_0, '0']
+- [blocks_file_source_0_0_1_0_0_0, '0', blocks_add_xx_0_0, '0']
 - [epy_block_0, '0', epy_block_1, '1']
 - [epy_block_0, '0', epy_block_1_2, '1']
 - [epy_block_0, '0', qtgui_time_sink_x_0_0_0, '1']
