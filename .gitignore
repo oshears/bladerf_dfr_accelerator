@@ -69,3 +69,6 @@ fpga/dfr_tb/dfr_flt_i_llvm_fpga_vpfp_pow_i26_i26_i260001848_expTables_lutmem.ver
 fpga/dfr_tb/dfr_flt_i_llvm_fpga_vpfp_pow_i26_i26_i260001852_expTables_lutmem.ver
 fpga/dfr_tb/dfr_flt_i_llvm_fpga_vpfp_pow_i26_i26_i260001855_expTables_lutmem.ver
 fpga/dfr_tb/dfr_flt_i_llvm_fpga_vpfp_pow_i26_i26_i260001858_expTables_lutmem.ver
+gnu_radio/custom/__pycache__/dfr_epy_block_0.cpython-38.pyc
+gnu_radio/custom/__pycache__/dfr_epy_block_1_0.cpython-38.pyc
+gnu_radio/custom/__pycache__/dfr_epy_block_1.cpython-38.pyc
