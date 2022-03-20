@@ -85,6 +85,24 @@ blocks:
     coordinate: [183, 12]
     rotation: 0
     state: enabled
+- name: blocks_file_sink_0
+  id: blocks_file_sink
+  parameters:
+    affinity: ''
+    alias: ''
+    append: 'False'
+    comment: ''
+    file: /home/oshears/Documents/bladeRF/bladerf_dfr_accelerator/gnu_radio/custom/dfr_out.bin
+    type: float
+    unbuffered: 'False'
+    vlen: '1'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [632, 948]
+    rotation: 0
+    state: true
 - name: blocks_file_source_0
   id: blocks_file_source
   parameters:
@@ -205,28 +223,59 @@ blocks:
       Uniform\"):  # only default arguments here\n        \"\"\"arguments to this\
       \ function show up as parameters in GRC\"\"\"\n        gr.sync_block.__init__(\n\
       \            self,\n            name='DFR Block',   # will show up in GRC\n\
-      \            in_sig=[np.complex64],\n            out_sig=[np.float32]\n    \
-      \    )\n        # if an attribute with the same name as a parameter is found,\n\
+      \            in_sig=[np.complex64],\n            out_sig=[np.float32,np.float32]\n\
+      \        )\n        # if an attribute with the same name as a parameter is found,\n\
       \        # a callback is registered (properties work, too).\n        self.Virtual_Nodes\
       \ = Virtual_Nodes\n        self.seed = Random_Seed\n        self.rng = np.random.default_rng(Random_Seed)\n\
       \        self.N = Virtual_Nodes\n        self.gamma = Input_Gain\n        self.eta\
       \ = Feedback_Scale\n        self.LAST_NODE = self.N - 1\n        self.reg =\
       \ 1e-8\n        self.reservoir = np.zeros(self.N)\n        self.mask = self.rng.uniform(Mask_Min,Mask_Max,self.N)\n\
+      \n        self.W = np.array([-589.4317283630371,\n                    -38.58226776123047,\n\
+      \                    946.5737419128418,\n                    -979.8047285079956,\n\
+      \                    -283.7571544647217,\n                    -559.7401161193848,\n\
+      \                    2737.4940071105957,\n                    -314.8955874443054,\n\
+      \                    968.3470306396484,\n                    7.468153893947601,\n\
+      \                    -1662.0237102508545,\n                    229.55740356445312,\n\
+      \                    -264.89648628234863,\n                    -0.3798371705415775,\n\
+      \                    -1349.5411758422852,\n                    -1.4192554373876192,\n\
+      \                    323.34349060058594,\n                    -286.4024085998535,\n\
+      \                    1281.8496704101562,\n                    1125.2301445007324,\n\
+      \                    -818.563850402832,\n                    577.280143737793,\n\
+      \                    185.4799575805664,\n                    -33.83775329589844,\n\
+      \                    1772.1830215454102,\n                    -1941.3939666748047,\n\
+      \                    140.7281723022461,\n                    -2284.337860107422,\n\
+      \                    -144.74640655517578,\n                    -231.86016082763672,\n\
+      \                    -11.057226657867432,\n                    -2388.1128540039062,\n\
+      \                    26.346128640696406,\n                    275.4407157897949,\n\
+      \                    438.04361724853516,\n                    -944.2057266235352,\n\
+      \                    94.12022018432617,\n                    170.9260711669922,\n\
+      \                    10.226631164550781,\n                    64.93780899047852,\n\
+      \                    199.9371795654297,\n                    -28.379258958622813,\n\
+      \                    -922.4196128845215,\n                    2259.5208444595337,\n\
+      \                    -75.7298812866211,\n                    272.80241775512695,\n\
+      \                    61.395785331726074,\n                    481.0991744995117,\n\
+      \                    1018.62744140625,\n                    2909.0243225097656])\n\
       \n        \n\n    def work(self, input_items, output_items):\n        \"\"\"\
       example: multiply with constant\"\"\"\n        # output_items[0][:] = input_items[0]\
-      \ * self.multiply_const\n        # print(input_items[0])\n\n        ADC_MAX_SIGNED\
-      \ = 2**11\n\n\n        i_data_norm = np.real(input_items[0])\n        q_data_norm\
-      \ = np.imag(input_items[0])\n\n        x = np.sqrt(np.power(i_data_norm,2) +\
-      \ np.power(q_data_norm,2))\n        # y = ss_data[:,2]\n\n        output_items[0][:]\
-      \ = x\n\n        # mask generation\n        # masked_samples = np.empty((num_samples,N))\n\
-      \        # for i in range(num_samples):\n        #     masked_samples[i] = mask\
-      \ * x[i]\n\n        # masked_sample = \n\n        # for j in range(N):\n\n \
-      \       #     g_i = mg(gamma * masked_samples[TRAIN_DATA_BEGIN + i][j] + eta\
-      \ * reservoir[LAST_NODE])\n        #     reservoir[1:N] = reservoir[0:LAST_NODE]\n\
-      \        #     reservoir[0] = g_i\n\n\n\n        # y_hat = reservoir_history.dot(W)\n\
-      \n\n        return len(output_items[0])\n\n    def mg(self,x):\n        a =\
-      \ 2\n        b = 0.8\n        c = 0.2\n        d = 2.1\n        p = 10\n\n \
-      \       return (a * x) / (b + c * np.power( (d * x), p) )\n"
+      \ * self.multiply_const\n        # print(input_items[0])\n\n        # ADC_MAX_SIGNED\
+      \ = 2**11\n\n        NUM_SAMPLES = len(input_items[0])\n\n\n        i_data =\
+      \ np.real(input_items[0])\n        q_data = np.imag(input_items[0])\n\n    \
+      \    x = np.sqrt(np.power(i_data,2) + np.power(q_data,2))\n        # y = ss_data[:,2]\n\
+      \n        output_items[0][:] = x\n\n        # mask generation\n        masked_samples\
+      \ = np.empty((NUM_SAMPLES,self.N))\n        for i in range(NUM_SAMPLES):\n \
+      \           masked_samples[i] = self.mask * x[i]\n\n        reservoir_history\
+      \ = np.zeros((NUM_SAMPLES,self.N))\n        for i in range(NUM_SAMPLES):\n \
+      \           for j in range(self.N):\n\n                g_i = self.mg(self.gamma\
+      \ * masked_samples[i][j] + self.eta * self.reservoir[self.LAST_NODE])\n    \
+      \            self.reservoir[1:self.N] = self.reservoir[0:self.LAST_NODE]\n \
+      \               self.reservoir[0] = g_i\n\n            reservoir_history[i]\
+      \ = self.reservoir\n\n        # y = reservoir_history.dot(self.W)\n        y\
+      \ = reservoir_history.dot(self.W)\n        y_bin = y.copy()\n        y_bin[y_bin\
+      \ >= 0.5] = 1\n        y_bin[y_bin < 0.5] = 0\n\n        output_items[0][:]\
+      \ = y_bin\n        output_items[1][:] = y\n\n        return len(output_items[0])\n\
+      \n    def mg(self,x):\n        a = 2\n        b = 0.8\n        c = 0.2\n   \
+      \     d = 2.1\n        p = 10\n\n        return (a * x) / (b + c * np.power(\
+      \ (d * x), p) )\n"
     affinity: ''
     alias: ''
     comment: ''
@@ -236,13 +285,54 @@ blocks:
     _io_cache: ('DFR Block', 'blk', [('Virtual_Nodes', '50'), ('Input_Gain', '0.5'),
       ('Feedback_Scale', '0.4'), ('Random_Seed', '0'), ('Mask_Min', '-0.5'), ('Mask_Max',
       '0.5'), ('Mask_Type', "'Uniform'")], [('0', 'complex', 1)], [('0', 'float',
-      1)], 'DFR Block - Perform DFR Inference', ['Virtual_Nodes'])
+      1), ('1', 'float', 1)], 'DFR Block - Perform DFR Inference', ['Virtual_Nodes'])
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [566, 661]
+    coordinate: [404, 696]
     rotation: 0
     state: enabled
+- name: epy_block_1
+  id: epy_block
+  parameters:
+    _source_code: "\"\"\"\nEmbedded Python Blocks:\n\nEach time this file is saved,\
+      \ GRC will instantiate the first class it finds\nto get ports and parameters\
+      \ of your block. The arguments to __init__  will\nbe the parameters. All of\
+      \ them are required to have default values!\n\"\"\"\n\nimport numpy as np\n\
+      from gnuradio import gr\n\n\nclass blk(gr.sync_block):  # other base classes\
+      \ are basic_block, decim_block, interp_block\n    \"\"\"Binary Accuracy Block\
+      \ - Keep a running total of the accuracy\"\"\"\n\n    def __init__(self, num_samples=1.0):\
+      \  # only default arguments here\n        \"\"\"arguments to this function show\
+      \ up as parameters in GRC\"\"\"\n        gr.sync_block.__init__(\n         \
+      \   self,\n            name='Binary Accuracy Block',   # will show up in GRC\n\
+      \            in_sig=[np.float32,np.float32],\n            out_sig=[np.float32]\n\
+      \        )\n        # if an attribute with the same name as a parameter is found,\n\
+      \        # a callback is registered (properties work, too).\n        self.num_samples\
+      \ = num_samples\n        self.processedSamples = 0\n        self.accuracy =\
+      \ 0\n\n    def work(self, input_items, output_items):\n        \"\"\"example:\
+      \ multiply with constant\"\"\"\n        # output_items[0][:] = input_items[0]\
+      \ * self.example_param\n\n        previousSum = self.accuracy * self.processedSamples\n\
+      \        currentSum = (input_items[0] == input_items[1]).sum()\n        currentNumSamples\
+      \ = len(input_items[0])\n        train_accuracy =  (currentSum + previousSum)\
+      \ / (currentNumSamples + self.processedSamples)\n        # auc = roc_auc_score(y_train,\
+      \ y_hat)\n        output_items[0][:] = train_accuracy\n\n        self.processedSamples\
+      \ += len(output_items[0])\n\n        return len(output_items[0])\n"
+    affinity: ''
+    alias: ''
+    comment: ''
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    num_samples: '1.0'
+  states:
+    _io_cache: ('Binary Accuracy Block', 'blk', [('num_samples', '1.0')], [('0', 'float',
+      1), ('1', 'float', 1)], [('0', 'float', 1)], 'Binary Accuracy Block - Keep a
+      running total of the accuracy', ['num_samples'])
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [787, 835]
+    rotation: 0
+    state: true
 - name: epy_block_1_0
   id: epy_block
   parameters:
@@ -274,7 +364,7 @@ blocks:
     bus_structure: null
     coordinate: [703, 473]
     rotation: 0
-    state: true
+    state: disabled
 - name: qtgui_const_sink_x_0
   id: qtgui_const_sink_x
   parameters:
@@ -345,7 +435,7 @@ blocks:
     tr_slope: qtgui.TRIG_SLOPE_POS
     tr_tag: '""'
     type: complex
-    update_time: '3'
+    update_time: '1'
     width1: '1'
     width10: '1'
     width2: '1'
@@ -364,9 +454,9 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [711, 336]
+    coordinate: [713, 336]
     rotation: 0
-    state: true
+    state: disabled
 - name: qtgui_time_sink_x_0
   id: qtgui_time_sink_x
   parameters:
@@ -539,7 +629,7 @@ blocks:
     tr_slope: qtgui.TRIG_SLOPE_POS
     tr_tag: '""'
     type: float
-    update_time: '3'
+    update_time: '1'
     width1: '3'
     width10: '1'
     width2: '3'
@@ -560,7 +650,7 @@ blocks:
     bus_structure: null
     coordinate: [974, 442]
     rotation: 0
-    state: true
+    state: disabled
 - name: qtgui_time_sink_x_0_0_0
   id: qtgui_time_sink_x
   parameters:
@@ -616,7 +706,7 @@ blocks:
     marker9: '-1'
     name: Spectrum Occupancy Prediction
     nconnections: '2'
-    size: '10'
+    size: '20'
     srate: samp_rate
     stemplot: 'False'
     style1: '0'
@@ -636,7 +726,7 @@ blocks:
     tr_slope: qtgui.TRIG_SLOPE_POS
     tr_tag: '""'
     type: float
-    update_time: '3'
+    update_time: '0.1'
     width1: '3'
     width10: '1'
     width2: '3'
@@ -655,19 +745,120 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [976, 685]
+    coordinate: [976, 683]
+    rotation: 0
+    state: true
+- name: qtgui_time_sink_x_0_0_1
+  id: qtgui_time_sink_x
+  parameters:
+    affinity: ''
+    alias: ''
+    alpha1: '1.0'
+    alpha10: '1.0'
+    alpha2: '1.0'
+    alpha3: '1.0'
+    alpha4: '1.0'
+    alpha5: '1.0'
+    alpha6: '1.0'
+    alpha7: '1.0'
+    alpha8: '1.0'
+    alpha9: '1.0'
+    autoscale: 'False'
+    axislabels: 'True'
+    color1: blue
+    color10: dark blue
+    color2: red
+    color3: green
+    color4: black
+    color5: cyan
+    color6: magenta
+    color7: yellow
+    color8: dark red
+    color9: dark green
+    comment: ''
+    ctrlpanel: 'False'
+    entags: 'True'
+    grid: 'False'
+    gui_hint: ''
+    label1: Accuracy
+    label10: Signal 10
+    label2: Spectrum Occupancy
+    label3: Threshold
+    label4: Signal 4
+    label5: Signal 5
+    label6: Signal 6
+    label7: Signal 7
+    label8: Signal 8
+    label9: Signal 9
+    legend: 'True'
+    marker1: '-1'
+    marker10: '-1'
+    marker2: '2'
+    marker3: '-1'
+    marker4: '-1'
+    marker5: '-1'
+    marker6: '-1'
+    marker7: '-1'
+    marker8: '-1'
+    marker9: '-1'
+    name: Prediction Accuracy
+    nconnections: '1'
+    size: '1000'
+    srate: samp_rate
+    stemplot: 'False'
+    style1: '1'
+    style10: '1'
+    style2: '0'
+    style3: '2'
+    style4: '1'
+    style5: '1'
+    style6: '1'
+    style7: '1'
+    style8: '1'
+    style9: '1'
+    tr_chan: '0'
+    tr_delay: '0'
+    tr_level: '0.0'
+    tr_mode: qtgui.TRIG_MODE_FREE
+    tr_slope: qtgui.TRIG_SLOPE_POS
+    tr_tag: '""'
+    type: float
+    update_time: '0.1'
+    width1: '3'
+    width10: '1'
+    width2: '3'
+    width3: '3'
+    width4: '1'
+    width5: '1'
+    width6: '1'
+    width7: '1'
+    width8: '1'
+    width9: '1'
+    ylabel: Accuracy
+    ymax: '1'
+    ymin: '0'
+    yunit: '""'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1019, 812]
     rotation: 0
     state: true
 
 connections:
 - [blocks_file_source_0, '0', blocks_float_to_complex_0, '0']
 - [blocks_file_source_0_0, '0', blocks_float_to_complex_0, '1']
+- [blocks_file_source_0_0_0, '0', epy_block_1, '0']
 - [blocks_file_source_0_0_0, '0', qtgui_time_sink_x_0_0_0, '0']
 - [blocks_float_to_complex_0, '0', blocks_multiply_const_vxx_0, '0']
 - [blocks_multiply_const_vxx_0, '0', epy_block_0, '0']
 - [blocks_multiply_const_vxx_0, '0', epy_block_1_0, '0']
 - [blocks_multiply_const_vxx_0, '0', qtgui_const_sink_x_0, '0']
+- [epy_block_0, '0', epy_block_1, '1']
 - [epy_block_0, '0', qtgui_time_sink_x_0_0_0, '1']
+- [epy_block_0, '1', blocks_file_sink_0, '0']
+- [epy_block_1, '0', qtgui_time_sink_x_0_0_1, '0']
 - [epy_block_1_0, '0', qtgui_time_sink_x_0_0, '0']
 
 metadata:
