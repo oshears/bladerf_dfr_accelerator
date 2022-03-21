@@ -32,13 +32,21 @@ int main() {
   printf("Initializing Reservoir...\n");
   for(unsigned int i = 0; i < NUM_INIT_SAMPLES; i++) ihc_hls_enqueue_noret(&dfr,u[i][0],u[i][1]);
   ihc_hls_component_run_all(dfr);
-  // for(unsigned int i = 0; i < 1; i++) dfr(u[i][0],u[i][1]);
 
   // reservoir test
   printf("Testing DFR...\n");
   for(unsigned int i = 0; i < NUM_TEST_SAMPLES; i++) ihc_hls_enqueue(&y_hat_test[i], &dfr,u[i+NUM_INIT_SAMPLES][0],u[i+NUM_INIT_SAMPLES][1]);
   ihc_hls_component_run_all(dfr);
-  // for(unsigned int i = 0; i < 1; i++) y_hat_test[i] = dfr(u[i+NUM_INIT_SAMPLES][0],u[i+NUM_INIT_SAMPLES][1]);
+
+  // Short Proof of Concept Tests
+  // DFR_FP result = dfr(0x0363,0x03BF);
+  // std::cout << result << "\n";
+  // result = dfr(0xFDD6,0xF8E3);
+  // std::cout << result << "\n";
+  // result = dfr(0xFED6,0x01E8);
+  // std::cout << result << "\n";
+  // result = dfr(0x02DD,0x00F5);
+  // std::cout << result << "\n";
 
   // calculate accuracy
   float accuracy = 0;
