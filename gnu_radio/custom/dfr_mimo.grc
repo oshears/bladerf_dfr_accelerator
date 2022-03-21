@@ -766,9 +766,9 @@ blocks:
     entags: 'True'
     grid: 'False'
     gui_hint: 4,0
-    label1: DFR
+    label1: Total
     label10: Signal 10
-    label2: Threshold
+    label2: 10 Sample
     label3: Threshold
     label4: Signal 4
     label5: Signal 5

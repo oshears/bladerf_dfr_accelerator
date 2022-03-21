@@ -5,8 +5,8 @@
 # SPDX-License-Identifier: GPL-3.0
 #
 # GNU Radio Python Flow Graph
-# Title: Spectrum Energy
-# Author: Osaze Shears
+# Title: Not titled yet
+# Author: oshears
 # GNU Radio version: v3.10.0.0-18-g3069ff28
 
 from packaging.version import Version as StrictVersion
@@ -38,19 +38,19 @@ from gnuradio.eng_arg import eng_float, intx
 from gnuradio import eng_notation
 from gnuradio.qtgui import Range, RangeWidget
 from PyQt5 import QtCore
-import dfr_epy_block_1 as epy_block_1  # embedded python block
-import dfr_epy_block_1_0 as epy_block_1_0  # embedded python block
+import test_epy_block_1_0 as epy_block_1_0  # embedded python block
+import test_epy_block_1_0_0 as epy_block_1_0_0  # embedded python block
 
 
 
 from gnuradio import qtgui
 
-class dfr(gr.top_block, Qt.QWidget):
+class test(gr.top_block, Qt.QWidget):
 
     def __init__(self):
-        gr.top_block.__init__(self, "Spectrum Energy", catch_exceptions=True)
+        gr.top_block.__init__(self, "Not titled yet", catch_exceptions=True)
         Qt.QWidget.__init__(self)
-        self.setWindowTitle("Spectrum Energy")
+        self.setWindowTitle("Not titled yet")
         qtgui.util.check_set_qss()
         try:
             self.setWindowIcon(Qt.QIcon.fromTheme('gnuradio-grc'))
@@ -68,7 +68,7 @@ class dfr(gr.top_block, Qt.QWidget):
         self.top_grid_layout = Qt.QGridLayout()
         self.top_layout.addLayout(self.top_grid_layout)
 
-        self.settings = Qt.QSettings("GNU Radio", "dfr")
+        self.settings = Qt.QSettings("GNU Radio", "test")
 
         try:
             if StrictVersion(Qt.qVersion()) < StrictVersion("5.0.0"):
@@ -103,7 +103,7 @@ class dfr(gr.top_block, Qt.QWidget):
             3, #number of inputs
             None # parent
         )
-        self.qtgui_time_sink_x_0.set_update_time(3)
+        self.qtgui_time_sink_x_0.set_update_time(0.1)
         self.qtgui_time_sink_x_0.set_y_axis(0, 6)
 
         self.qtgui_time_sink_x_0.set_y_label('Spectrum Energy', "")
@@ -145,12 +145,12 @@ class dfr(gr.top_block, Qt.QWidget):
         self._qtgui_time_sink_x_0_win = sip.wrapinstance(self.qtgui_time_sink_x_0.qwidget(), Qt.QWidget)
         self.top_layout.addWidget(self._qtgui_time_sink_x_0_win)
         self.qtgui_const_sink_x_0 = qtgui.const_sink_c(
-            100, #size
+            1024, #size
             'Constellation Data', #name
             2, #number of inputs
             None # parent
         )
-        self.qtgui_const_sink_x_0.set_update_time(3)
+        self.qtgui_const_sink_x_0.set_update_time(0.1)
         self.qtgui_const_sink_x_0.set_y_axis(-5, 5)
         self.qtgui_const_sink_x_0.set_x_axis(-5, 5)
         self.qtgui_const_sink_x_0.set_trigger_mode(qtgui.TRIG_MODE_FREE, qtgui.TRIG_SLOPE_POS, 0.0, 0, "")
@@ -189,8 +189,8 @@ class dfr(gr.top_block, Qt.QWidget):
             self.top_grid_layout.setRowStretch(r, 1)
         for c in range(0, 1):
             self.top_grid_layout.setColumnStretch(c, 1)
+        self.epy_block_1_0_0 = epy_block_1_0_0.blk()
         self.epy_block_1_0 = epy_block_1_0.blk()
-        self.epy_block_1 = epy_block_1.blk()
         self.digital_constellation_encoder_bc_1 = digital.constellation_encoder_bc(qpsk_constellation)
         self.blocks_add_xx_0 = blocks.add_vcc(1)
         self.analog_random_source_x_0 = blocks.vector_source_b(list(map(int, numpy.random.randint(0, 8, 1000))), True)
@@ -204,17 +204,17 @@ class dfr(gr.top_block, Qt.QWidget):
         self.connect((self.analog_const_source_x_0, 0), (self.qtgui_time_sink_x_0, 2))
         self.connect((self.analog_noise_source_x_0, 0), (self.blocks_add_xx_0, 1))
         self.connect((self.analog_random_source_x_0, 0), (self.digital_constellation_encoder_bc_1, 0))
-        self.connect((self.blocks_add_xx_0, 0), (self.epy_block_1, 0))
+        self.connect((self.blocks_add_xx_0, 0), (self.epy_block_1_0_0, 0))
         self.connect((self.blocks_add_xx_0, 0), (self.qtgui_const_sink_x_0, 1))
         self.connect((self.digital_constellation_encoder_bc_1, 0), (self.blocks_add_xx_0, 0))
         self.connect((self.digital_constellation_encoder_bc_1, 0), (self.epy_block_1_0, 0))
         self.connect((self.digital_constellation_encoder_bc_1, 0), (self.qtgui_const_sink_x_0, 0))
-        self.connect((self.epy_block_1, 0), (self.qtgui_time_sink_x_0, 1))
         self.connect((self.epy_block_1_0, 0), (self.qtgui_time_sink_x_0, 0))
+        self.connect((self.epy_block_1_0_0, 0), (self.qtgui_time_sink_x_0, 1))
 
 
     def closeEvent(self, event):
-        self.settings = Qt.QSettings("GNU Radio", "dfr")
+        self.settings = Qt.QSettings("GNU Radio", "test")
         self.settings.setValue("geometry", self.saveGeometry())
         self.stop()
         self.wait()
@@ -244,7 +244,7 @@ class dfr(gr.top_block, Qt.QWidget):
 
 
 
-def main(top_block_cls=dfr, options=None):
+def main(top_block_cls=test, options=None):
 
     if StrictVersion("4.5.0") <= StrictVersion(Qt.qVersion()) < StrictVersion("5.0.0"):
         style = gr.prefs().get_string('qtgui', 'style', 'raster')

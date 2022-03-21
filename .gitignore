@@ -77,3 +77,4 @@ gnu_radio/custom/__pycache__/dfr_epy_block_1_1_0.cpython-38.pyc
 gnu_radio/custom/__pycache__/dfr_epy_block_1_1.cpython-38.pyc
 gnu_radio/custom/__pycache__/dfr_epy_block_1_2.cpython-38.pyc
 gnu_radio/custom/__pycache__/dfr_epy_block_2.cpython-38.pyc
+*.pyc
