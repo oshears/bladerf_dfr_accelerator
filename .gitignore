@@ -78,3 +78,9 @@ gnu_radio/custom/__pycache__/dfr_epy_block_1_1.cpython-38.pyc
 gnu_radio/custom/__pycache__/dfr_epy_block_1_2.cpython-38.pyc
 gnu_radio/custom/__pycache__/dfr_epy_block_2.cpython-38.pyc
 *.pyc
+
+
+# PPAA Analysis
+# /home/oshears/Documents/bladeRF/bladerf_dfr_accelerator/intel_hls/hls_float_dfr_narma10_ppaa
+intel_hls/hls_float_dfr_narma10_ppaa
+intel_hls/hls_float_dfr_spectrum_raw_ppaa
